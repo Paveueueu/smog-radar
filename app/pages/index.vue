@@ -2,13 +2,13 @@
 import type { AirReport } from '#shared/types/air'
 
 const { place, select } = usePlace()
-const profile: Profile = 'general' // the sensitive toggle comes in a later step
+const profile = useProfile()
 
 const { data: report, status, error, refresh } = await useFetch<AirReport>('/api/air', {
   query: computed(() => ({ lat: place.value.lat, lon: place.value.lon })),
 })
 
-const assessment = computed(() => (report.value ? assess(report.value, profile) : null))
+const assessment = computed(() => (report.value ? assess(report.value, profile.value) : null))
 
 useSeoMeta({ title: () => `${place.value.name} - Smog Radar` })
 
@@ -22,12 +22,17 @@ useSeoMeta({ title: () => `${place.value.name} - Smog Radar` })
     <div v-if="report && assessment" class="grid gap-8" :class="{ 'opacity-60 transition-opacity': status === 'pending' }">
       <AirSummary :report="report" :assessment="assessment" :place="place.name" />
 
-      <div class="grid gap-4 sm:grid-cols-2">
-        <VerdictCard :verdict="assessment.walk" :now="report.current.time" :time-zone="report.location.timezone" />
-        <VerdictCard :verdict="assessment.windows" :now="report.current.time" :time-zone="report.location.timezone" />
+      <div class="grid gap-4">
+        <div class="grid gap-4 sm:grid-cols-2">
+          <VerdictCard :verdict="assessment.walk" :now="report.current.time" :time-zone="report.location.timezone" />
+          <VerdictCard :verdict="assessment.windows" :now="report.current.time" :time-zone="report.location.timezone" />
+        </div>
+        <SensitiveToggle v-model="profile" class="px-1" />
       </div>
 
       <ForecastTimeline :report="report" :assessment="assessment" />
+
+      <PollutantBreakdown :sample="report.current" />
     </div>
 
     <p v-else-if="status === 'pending'" class="text-muted">
