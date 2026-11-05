@@ -3,45 +3,125 @@
 /* Dark mode follows the `.dark` class set by @nuxtjs/color-mode. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ---------------------------------------------------------------------
-   Design tokens. Placeholder values until the visual design is decided;
-   components should use these utilities (bg-bg, text-ink, text-muted,
-   border-line ...) rather than raw colours, so a redesign stays here.
-   --------------------------------------------------------------------- */
+/* Design tokens. Components use the utilities these feed, never raw colours. */
 
 :root {
-  --bg: #F6F7F8;
+  --bg: #F4F3EF;
   --surface: #FFFFFF;
-  --ink: #111418;
-  --muted: #5B6470;
-  --line: #D9DEE3;
+  --surface-2: #F9F8F5;
+  --ink: #16181B;
+  --ink-2: #3A3F45;
+  --muted: #646A71;
+  --line: #E1DFD8;
+  --line-strong: #C9C6BD;
+
+  /* European AQI bands: a green → purple ramp. Always paired with a text label. */
+  --band-good: #2BAE9C;
+  --band-fair: #79BF5A;
+  --band-moderate: #E2BB1F;
+  --band-poor: #EE8434;
+  --band-very-poor: #D9434F;
+  --band-extremely-poor: #8D3B91;
+
+  /* Verdict levels; the *-text variants meet 4.5:1 on surface. */
+  --level-good: #2E9E5B;
+  --level-good-text: #1F7A43;
+  --level-caution: #E0A419;
+  --level-caution-text: #8A5E00;
+  --level-bad: #D9434F;
+  --level-bad-text: #B12A36;
+
+  --shadow-card: 0 1px 0 rgb(22 24 27 / 0.03), 0 8px 24px -14px rgb(22 24 27 / 0.22);
   color-scheme: light;
 }
 
 .dark {
-  --bg: #0D1014;
-  --surface: #151A20;
-  --ink: #E8ECF0;
-  --muted: #8D97A3;
-  --line: #262E37;
+  --bg: #0F1113;
+  --surface: #171A1D;
+  --surface-2: #131619;
+  --ink: #ECEDEE;
+  --ink-2: #C5C9CE;
+  --muted: #9AA1A8;
+  --line: #2A2E33;
+  --line-strong: #3C4248;
+
+  --band-good: #3CC9B5;
+  --band-fair: #8DD06C;
+  --band-moderate: #EDCB3A;
+  --band-poor: #F4964D;
+  --band-very-poor: #EA5D68;
+  --band-extremely-poor: #B566B8;
+
+  --level-good: #4CC27D;
+  --level-good-text: #6FD597;
+  --level-caution: #F0BA3A;
+  --level-caution-text: #F3C860;
+  --level-bad: #EA5D68;
+  --level-bad-text: #F2838C;
+
+  --shadow-card: 0 1px 0 rgb(0 0 0 / 0.3), 0 10px 28px -16px rgb(0 0 0 / 0.7);
   color-scheme: dark;
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
   --color-muted: var(--muted);
   --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-band-good: var(--band-good);
+  --color-band-fair: var(--band-fair);
+  --color-band-moderate: var(--band-moderate);
+  --color-band-poor: var(--band-poor);
+  --color-band-very-poor: var(--band-very-poor);
+  --color-band-extremely-poor: var(--band-extremely-poor);
+
+  --color-level-good: var(--level-good);
+  --color-level-good-text: var(--level-good-text);
+  --color-level-caution: var(--level-caution);
+  --color-level-caution-text: var(--level-caution-text);
+  --color-level-bad: var(--level-bad);
+  --color-level-bad-text: var(--level-bad-text);
+
+  --shadow-card: var(--shadow-card);
+}
+
+@theme {
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  --radius-card: 14px;
+  --container-app: 960px;
 }
 
 @layer base {
-  body {
-    @apply bg-bg font-sans text-ink antialiased;
+  html {
+    -webkit-text-size-adjust: 100%;
   }
 
-  :focus-visible {
-    outline: 3px solid currentColor;
-    outline-offset: 2px;
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    font-size: 16px;
+    line-height: 1.55;
   }
+
+  h1, h2, h3 { text-wrap: balance; }
+
+  :focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@utility app-wrap {
+  width: 100%;
+  max-width: calc(var(--container-app) + 2 * 20px);
+  margin-inline: auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
 }
