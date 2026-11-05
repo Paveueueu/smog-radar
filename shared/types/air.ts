@@ -14,6 +14,8 @@ export interface AirSample {
   pm10: number | null
   no2: number | null
   o3: number | null
+  /** Sub-index per pollutant; `aqi` is the highest. */
+  subIndex: Record<Pollutant, number | null>
 }
 
 export interface AirReport {

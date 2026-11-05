@@ -1,6 +1,8 @@
 /** GET /api/air?lat=52.23&lon=21.01 */
 import { z } from 'zod'
 import type { AirReport } from '../../shared/types/air'
+import { AIR_QUALITY_URL, AIR_REPORT_VERSION, airQualityQuery, parseAirQuality } from '../utils/open-meteo'
+import { roundCoord, UPSTREAM_FETCH, upstreamError } from '../utils/upstream'
 
 const Query = z.object({
   lat: z.coerce.number().min(-90).max(90),
@@ -16,7 +18,8 @@ const getAirReport = defineCachedFunction(
   {
     name: 'air-report',
     maxAge: 60 * 20,
-    getKey: (lat: number, lon: number) => `${lat}:${lon}`,
+    // Bump AIR_REPORT_VERSION whenever the AirReport shape changes, so stale entries are never served.
+    getKey: (lat: number, lon: number) => `v${AIR_REPORT_VERSION}:${lat}:${lon}`,
   },
 )
 

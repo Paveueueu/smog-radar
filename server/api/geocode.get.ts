@@ -4,6 +4,8 @@
  */
 import { z } from 'zod'
 import type { Place } from '../../shared/types/air'
+import { GEOCODING_URL, geocodingQuery, parseGeocoding } from '../utils/open-meteo'
+import { UPSTREAM_FETCH, upstreamError } from '../utils/upstream'
 
 const Query = z.object({
   q: z.string().trim().min(2).max(80),
