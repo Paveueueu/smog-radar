@@ -6,6 +6,7 @@ const props = defineProps<{ report: AirReport, assessment: Assessment, place: st
 
 const tz = computed(() => props.report.location.timezone)
 const hour = computed(() => formatClock(props.report.current.time, tz.value))
+const updated = computed(() => formatClock(props.report.fetchedAt, tz.value))
 const dominant = computed(() => (props.assessment.dominant ? POLLUTANT_INFO[props.assessment.dominant] : null))
 </script>
 
@@ -13,7 +14,7 @@ const dominant = computed(() => (props.assessment.dominant ? POLLUTANT_INFO[prop
   <section aria-labelledby="place-name" class="grid gap-6 sm:grid-cols-[minmax(0,1fr)_minmax(0,18rem)] sm:items-end">
     <div>
       <p class="font-mono text-xs font-medium uppercase tracking-[0.08em] text-muted">
-        Air quality at {{ hour }}
+        Air quality at {{ hour }} <span class="normal-case tracking-normal">· updated {{ updated }}</span>
       </p>
       <h1 id="place-name" class="mt-1 text-4xl font-semibold tracking-tight sm:text-5xl">
         {{ place }}

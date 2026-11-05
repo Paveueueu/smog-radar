@@ -15,7 +15,7 @@ const style = computed(() => (props.verdict.level ? LEVEL_STYLE[props.verdict.le
 const outlook = computed(() => {
   const v = props.verdict
   if (v.level === null || v.level === 'good') return null
-  if (v.betterAt) return `Better from ${formatHour(v.betterAt.start, props.now, props.timeZone)}`
+  if (v.betterAt) return `Next good hour: ${formatHour(v.betterAt.start, props.now, props.timeZone)}`
   return 'No better hour in the next 24 hours'
 })
 </script>

@@ -81,7 +81,7 @@ function onSelect(place: Place | null) {
         @focus="open = term.trim().length >= MIN_CHARS"
         @input="open = true"
       />
-      <span v-if="state === 'loading'" class="size-4 flex-none animate-spin rounded-full border-2 border-line-strong border-t-ink" aria-hidden="true" />
+      <span v-if="state === 'loading'" class="size-4 flex-none animate-spin rounded-full motion-reduce:animate-none border-2 border-line-strong border-t-ink" aria-hidden="true" />
     </ComboboxAnchor>
 
     <ComboboxPortal>

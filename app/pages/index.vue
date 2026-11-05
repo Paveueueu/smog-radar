@@ -8,18 +8,39 @@ const { data: report, status, error, refresh } = await useFetch<AirReport>('/api
   query: computed(() => ({ lat: place.value.lat, lon: place.value.lon })),
 })
 
+useAutoRefresh(report, refresh)
+
 const assessment = computed(() => (report.value ? assess(report.value, profile.value) : null))
+const updating = computed(() => status.value === 'pending' && !!report.value)
 
 useSeoMeta({ title: () => `${place.value.name} - Smog Radar` })
-
-// Loading and error states are minimal for now; skeletons and friendlier errors come in the polish step.
 </script>
 
 <template>
   <div class="grid gap-8">
     <PlacePicker @select="select" />
 
-    <div v-if="report && assessment" class="grid gap-8" :class="{ 'opacity-60 transition-opacity': status === 'pending' }">
+    <LoadError
+      v-if="error"
+      :status="error.statusCode"
+      :retrying="status === 'pending'"
+      @retry="refresh()"
+    />
+
+    <div
+      v-else-if="report && assessment"
+      class="relative grid gap-8 transition-opacity"
+      :class="{ 'opacity-60': updating }"
+      :aria-busy="updating"
+    >
+      <p
+        v-if="updating"
+        role="status"
+        class="absolute -top-6 right-0 font-mono text-xs text-muted"
+      >
+        Updating…
+      </p>
+
       <AirSummary :report="report" :assessment="assessment" :place="place.name" />
 
       <div class="grid gap-4">
@@ -35,15 +56,11 @@ useSeoMeta({ title: () => `${place.value.name} - Smog Radar` })
       <PollutantBreakdown :sample="report.current" />
     </div>
 
-    <p v-else-if="status === 'pending'" class="text-muted">
-      Loading air quality…
-    </p>
-
-    <div v-else-if="error" class="grid justify-items-start gap-3">
-      <p>Couldn't load air quality data. {{ error.statusMessage }}</p>
-      <button type="button" class="cursor-pointer rounded-full border border-line-strong px-4 py-2 text-sm font-medium hover:bg-surface" @click="refresh()">
-        Try again
-      </button>
+    <div v-else>
+      <p role="status" class="sr-only">
+        Loading air quality…
+      </p>
+      <LoadingSkeleton />
     </div>
   </div>
 </template>
