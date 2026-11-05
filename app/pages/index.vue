@@ -26,6 +26,8 @@ useSeoMeta({ title: () => `${place.value.name} - Smog Radar` })
         <VerdictCard :verdict="assessment.walk" :now="report.current.time" :time-zone="report.location.timezone" />
         <VerdictCard :verdict="assessment.windows" :now="report.current.time" :time-zone="report.location.timezone" />
       </div>
+
+      <ForecastTimeline :report="report" :assessment="assessment" />
     </div>
 
     <p v-else-if="status === 'pending'" class="text-muted">
