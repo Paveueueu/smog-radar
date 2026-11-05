@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import type { AirReport } from '#shared/types/air'
 
-const place = DEFAULT_PLACE
+const { place, select } = usePlace()
 const profile: Profile = 'general' // the sensitive toggle comes in a later step
 
 const { data: report, status, error, refresh } = await useFetch<AirReport>('/api/air', {
-  query: { lat: place.lat, lon: place.lon },
+  query: computed(() => ({ lat: place.value.lat, lon: place.value.lon })),
 })
 
 const assessment = computed(() => (report.value ? assess(report.value, profile) : null))
 
-useSeoMeta({ title: () => `${place.name} - Smog Radar` })
+useSeoMeta({ title: () => `${place.value.name} - Smog Radar` })
 
 // Loading and error states are minimal for now; skeletons and friendlier errors come in the polish step.
 </script>
 
 <template>
-  <div>
-    <div v-if="report && assessment" class="grid gap-8">
+  <div class="grid gap-8">
+    <PlacePicker @select="select" />
+
+    <div v-if="report && assessment" class="grid gap-8" :class="{ 'opacity-60 transition-opacity': status === 'pending' }">
       <AirSummary :report="report" :assessment="assessment" :place="place.name" />
 
       <div class="grid gap-4 sm:grid-cols-2">
