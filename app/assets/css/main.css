@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+/* Dark mode follows the `.dark` class set by @nuxtjs/color-mode. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------
+   Design tokens. Placeholder values until the visual design is decided;
+   components should use these utilities (bg-bg, text-ink, text-muted,
+   border-line ...) rather than raw colours, so a redesign stays here.
+   --------------------------------------------------------------------- */
+
+:root {
+  --bg: #F6F7F8;
+  --surface: #FFFFFF;
+  --ink: #111418;
+  --muted: #5B6470;
+  --line: #D9DEE3;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0D1014;
+  --surface: #151A20;
+  --ink: #E8ECF0;
+  --muted: #8D97A3;
+  --line: #262E37;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+}
+
+@layer base {
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+  }
+
+  :focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 2px;
+  }
+}
