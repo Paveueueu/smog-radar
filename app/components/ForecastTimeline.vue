@@ -11,22 +11,23 @@ const tz = computed(() => props.report.location.timezone)
 const now = computed(() => props.report.current.time)
 const timeline = computed(() => buildTimeline(props.report, props.assessment.cleanest, locale.value))
 
-// ---------- selection: pointer, touch and arrow keys all move the same readout ----------
-
 const selected = ref(0)
-watch(() => props.report, () => { selected.value = 0 })
+const reading = ref(false)
+watch(() => props.report, () => {
+  selected.value = 0
+  reading.value = false
+})
 
-function onKey(e: KeyboardEvent) {
-  const last = timeline.value.columns.length - 1
-  const next = { ArrowRight: selected.value + 1, ArrowLeft: selected.value - 1, Home: 0, End: last }[e.key]
-  if (next === undefined) return
-  e.preventDefault()
-  selected.value = Math.min(last, Math.max(0, next))
+function pick(i: number) {
+  selected.value = i
+  reading.value = true
 }
 
 // Touch fires pointerleave after every tap, so only a mouse resets to "now".
 function onLeave(e: PointerEvent) {
-  if (e.pointerType === 'mouse') selected.value = 0
+  if (e.pointerType !== 'mouse') return
+  selected.value = 0
+  reading.value = false
 }
 
 const readout = computed(() => {
@@ -60,10 +61,9 @@ const cleanestText = computed(() => {
       </p>
     </div>
 
-    <!-- Chart. The plot is a slider over the hours; bars and axes are decorative,
-         and screen readers also get the full table below. -->
+    <!-- Hidden from screen readers; they get the table below. -->
     <div class="mt-6 flex gap-2">
-      <div aria-hidden="true" class="relative h-44 w-6 flex-none font-mono text-[10px] text-muted sm:h-52">
+      <div aria-hidden="true" class="relative h-44 w-6 flex-none tabular-nums text-[10px] text-muted sm:h-52">
         <span
           v-for="g in timeline.gridlines"
           :key="g"
@@ -74,15 +74,8 @@ const cleanestText = computed(() => {
 
       <div class="min-w-0 flex-1">
         <div
-          role="slider"
-          tabindex="0"
-          :aria-label="t('forecast.slider')"
-          aria-valuemin="0"
-          :aria-valuemax="timeline.columns.length - 1"
-          :aria-valuenow="selected"
-          :aria-valuetext="`${readout.when}: ${readout.text}`"
-          class="relative h-44 cursor-crosshair rounded-sm outline-offset-4 sm:h-52"
-          @keydown="onKey"
+          aria-hidden="true"
+          class="relative h-44 sm:h-52"
           @pointerleave="onLeave"
         >
           <span
@@ -100,21 +93,20 @@ const cleanestText = computed(() => {
               :key="col.time"
               class="relative flex h-full items-end justify-center px-px sm:px-[2px]"
               :class="[
-                col.isNight ? 'bg-ink/[0.035]' : '',
                 col.inCleanest ? 'bg-level-good/12' : '',
                 col.dayLabel ? 'border-l border-dashed border-line-strong' : '',
               ]"
-              @pointerenter="selected = i"
-              @pointerdown="selected = i"
+              @pointerenter="pick(i)"
+              @pointerdown="pick(i)"
             >
-              <span v-if="col.dayLabel" class="absolute -top-5 left-1 font-mono text-[10px] text-muted">{{ col.dayLabel }}</span>
-              <span v-if="col.isNow" class="absolute -top-5 font-mono text-[10px] font-semibold text-ink">{{ t('forecast.now') }}</span>
+              <span v-if="col.dayLabel" class="absolute -top-5 left-1 tabular-nums text-[10px] text-muted">{{ col.dayLabel }}</span>
+              <span v-if="col.isNow" class="absolute -top-5 tabular-nums text-[10px] font-semibold text-ink">{{ t('forecast.now') }}</span>
               <span
                 v-if="col.band"
-                class="w-full rounded-t-[3px] transition-[outline-color] duration-100"
+                class="w-full rounded-t-[3px] transition-opacity duration-150 motion-reduce:transition-none"
                 :class="[
                   BAND_BG[col.band],
-                  i === selected ? 'outline-2 outline-offset-1 outline-ink' : 'outline-transparent',
+                  reading && i !== selected ? 'opacity-35' : 'opacity-100',
                   col.clipped ? 'rounded-t-none' : '',
                 ]"
                 :style="{ height: `${Math.max(col.height * 100, 1.5)}%` }"
@@ -124,7 +116,7 @@ const cleanestText = computed(() => {
           </div>
         </div>
 
-        <div aria-hidden="true" class="mt-1.5 grid grid-cols-[repeat(25,minmax(0,1fr))] font-mono text-[10px] text-muted">
+        <div aria-hidden="true" class="mt-1.5 grid grid-cols-[repeat(25,minmax(0,1fr))] tabular-nums text-[10px] text-muted">
           <span v-for="(col, i) in timeline.columns" :key="col.time" class="text-center">
             {{ i % 3 === 0 ? col.hour : '' }}
           </span>
@@ -134,23 +126,8 @@ const cleanestText = computed(() => {
 
     <p class="mt-4 flex flex-wrap items-baseline gap-x-2 border-t border-line pt-3 text-sm" aria-hidden="true">
       <span class="font-medium">{{ readout.when }}</span>
-      <span class="font-mono text-ink-2">{{ readout.text }}</span>
+      <span class="tabular-nums text-ink-2">{{ readout.text }}</span>
     </p>
-
-    <ul class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted">
-      <li class="flex items-center gap-1.5">
-        <span class="size-3 rounded-sm bg-level-good/25" aria-hidden="true" />{{ t('forecast.legendCleanest') }}
-      </li>
-      <li class="flex items-center gap-1.5">
-        <span class="size-3 rounded-sm bg-ink/10" aria-hidden="true" />{{ t('forecast.legendNight') }}
-      </li>
-      <li class="max-sm:hidden">
-        {{ t('forecast.hintPointer') }}
-      </li>
-      <li class="sm:hidden">
-        {{ t('forecast.hintTouch') }}
-      </li>
-    </ul>
 
     <!-- A div, not sr-only on the table: a table ignores the 1px box and widens the page. -->
     <div class="sr-only">

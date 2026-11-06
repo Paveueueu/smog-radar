@@ -34,10 +34,9 @@
     "choose": "Choose your place"
   },
   "summary": {
-    "at": "Air quality at {hour}",
-    "updated": "updated {time}",
     "mostly": "mostly {name} ({label})",
-    "noValue": "No air quality value for this hour."
+    "noValue": "No air quality value for this hour.",
+    "dataTime": "Data for {hour}, updated {time}"
   },
   "band": {
     "good": "Good",
@@ -127,13 +126,8 @@
     "cleanestValue": "{range}, average AQI {aqi}",
     "now": "now",
     "noData": "no data for this hour",
-    "readout": "AQI {aqi} · {band}",
-    "readoutBy": "AQI {aqi} · {band} · mostly {pollutant}",
-    "legendCleanest": "Cleanest stretch",
-    "legendNight": "Night, not suggested",
-    "hintPointer": "Hover or use ← → to read an hour",
-    "hintTouch": "Tap a bar to read an hour",
-    "slider": "Hour of the forecast",
+    "readout": "AQI {aqi}, {band}",
+    "readoutBy": "AQI {aqi}, {band}, mostly {pollutant}",
     "caption": "Air quality forecast by hour, {tz} time",
     "colHour": "Hour",
     "colAqi": "European AQI",
@@ -234,9 +228,7 @@
     "error": "Station data isn't available right now.",
     "nearest": "Nearest station {km} km away: PM2.5 {value} µg/m³ ({band}), reading at {time}.",
     "nearestNone": "No station within {km} km of this place, so the map has no colour here.",
-    "legend": "PM2.5, µg/m³",
-    "note": "Latest hourly PM2.5 from {n} stations ({source}). Between stations the colour is interpolated; there is none further than {km} km from a station.",
-    "popup": "PM2.5 {value} µg/m³ · {band}",
+    "popup": "PM2.5 {value} µg/m³, {band}",
     "popupTime": "reading at {time}",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
@@ -244,6 +236,8 @@
     "attribution": "Toggle attribution",
     "windowsHelp": "Use Ctrl + scroll to zoom the map",
     "macHelp": "Use ⌘ + scroll to zoom the map",
-    "mobileHelp": "Use two fingers to move the map"
+    "mobileHelp": "Use two fingers to move the map",
+    "sources": "Measurements from {n} stations ({source}).",
+    "how": "How the map is made"
   }
 }

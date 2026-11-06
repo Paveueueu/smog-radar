@@ -10,6 +10,8 @@ import {
 } from 'reka-ui'
 import type { Place } from '#shared/types/air'
 
+// Results near `near` come first.
+const props = defineProps<{ near?: { lat: number, lon: number } }>()
 const emit = defineEmits<{ select: [place: SelectedPlace] }>()
 const { t, locale } = useI18n()
 
@@ -33,7 +35,7 @@ async function search(q: string) {
   controller = new AbortController()
   state.value = 'loading'
   try {
-    results.value = await $fetch<Place[]>('/api/geocode', { query: { q: q.trim(), lang: locale.value }, signal: controller.signal })
+    results.value = await $fetch<Place[]>('/api/geocode', { query: { q: q.trim(), lang: locale.value, lat: props.near?.lat, lon: props.near?.lon }, signal: controller.signal })
     state.value = 'done'
   }
   catch (e) {
@@ -47,7 +49,7 @@ watchDebounced(term, search, { debounce: 250 })
 
 function onSelect(place: Place | null) {
   if (!place) return
-  emit('select', { name: place.name, lat: place.lat, lon: place.lon })
+  emit('select', { name: place.label, lat: place.lat, lon: place.lon })
   term.value = ''
   results.value = []
   state.value = 'idle'
@@ -96,11 +98,11 @@ function onSelect(place: Place | null) {
             v-for="place in results"
             :key="place.id"
             :value="place"
-            :text-value="place.name"
+            :text-value="place.label"
             class="flex cursor-pointer flex-col rounded-xl px-3 py-2 outline-none data-[highlighted]:bg-bg"
           >
             <span class="font-medium text-ink">{{ place.name }}</span>
-            <span v-if="placeContext(place)" class="text-sm text-muted">{{ placeContext(place) }}</span>
+            <span v-if="place.context" class="text-sm text-muted">{{ place.context }}</span>
           </ComboboxItem>
 
           <ComboboxEmpty v-if="state === 'done'" class="px-3 py-2 text-sm text-muted">

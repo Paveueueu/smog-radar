@@ -56,15 +56,17 @@ export interface StationsReport {
   fetchedAt: string
 }
 
-/** A place found by name search. */
+export type PlaceKind = 'city' | 'town' | 'district' | 'village' | 'hamlet'
+
 export interface Place {
-  id: number
+  /** e.g. "N2618040" */
+  id: string
   name: string
-  /** region / voivodeship, when known */
-  region: string | null
-  country: string | null
+  /** "Gocław, Warszawa" for a city part, otherwise the name */
+  label: string
+  context: string
+  kind: PlaceKind
   countryCode: string | null
   lat: number
   lon: number
-  timezone: string | null
 }

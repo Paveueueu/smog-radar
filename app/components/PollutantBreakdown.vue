@@ -22,7 +22,7 @@ const rows = computed(() => pollutantRows(props.sample))
             <span class="font-semibold">{{ row.label }}</span>
             <span class="ml-2 text-sm text-muted">{{ t(`pollutant.${row.id}`) }}</span>
           </p>
-          <p class="flex-none font-mono text-sm">
+          <p class="flex-none tabular-nums text-sm">
             <template v-if="row.value !== null">
               {{ text.concentration(row.value) }} <span class="text-muted">{{ t('pollutants.unit') }}</span>
             </template>
@@ -45,7 +45,7 @@ const rows = computed(() => pollutantRows(props.sample))
 
         <p class="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
           <span v-if="row.ratio !== null" class="text-ink-2">{{ text.ratio(row.ratio) }}</span>
-          <span v-if="row.subIndex !== null" class="font-mono text-xs text-muted">EAQI {{ Math.round(row.subIndex) }}</span>
+          <span v-if="row.subIndex !== null" class="tabular-nums text-xs text-muted">EAQI {{ Math.round(row.subIndex) }}</span>
           <span
             v-if="row.isDominant"
             class="rounded-full bg-ink px-2 py-0.5 text-xs font-medium text-bg"

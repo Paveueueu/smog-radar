@@ -57,11 +57,9 @@ export default defineNuxtConfig({
     storageKey: 'smog-radar-theme',
   },
 
-  // Same families as the portfolio site, so the two read as one brand.
   fonts: {
     families: [
       { name: 'Instrument Sans', provider: 'google', weights: [400, 500, 600, 700] },
-      { name: 'JetBrains Mono', provider: 'google', weights: [400, 500, 600] },
     ],
   },
 

@@ -76,7 +76,7 @@ const clock = (h: number) => `${String(h).padStart(2, '0')}:00`
                 <span class="size-3 rounded-full ring-1 ring-ink/15" :class="BAND_BG[b.id]" aria-hidden="true" />{{ text.band(b.id) }}
               </span>
             </td>
-            <td class="font-mono">
+            <td class="tabular-nums">
               {{ bandRange(b) }}
             </td>
           </tr>
@@ -101,7 +101,7 @@ const clock = (h: number) => `${String(h).padStart(2, '0')}:00`
         <tbody>
           <tr v-for="level in LEVELS" :key="level">
             <td>{{ t(`verdict.${a}.${level}.headline`) }}</td>
-            <td v-for="p in PROFILES" :key="p" class="font-mono">
+            <td v-for="p in PROFILES" :key="p" class="tabular-nums">
               AQI {{ range(a, p, level) }}
             </td>
           </tr>
@@ -148,8 +148,8 @@ const clock = (h: number) => `${String(h).padStart(2, '0')}:00`
         </thead>
         <tbody>
           <tr v-for="(info, id) in POLLUTANT_INFO" :key="id">
-            <td>{{ info.label }} <span class="text-muted">· {{ t(`pollutant.${id}`) }}</span></td>
-            <td class="font-mono">
+            <td>{{ info.label }} <span class="text-muted">({{ t(`pollutant.${id}`).toLowerCase() }})</span></td>
+            <td class="tabular-nums">
               {{ t('about.guideline', { value: info.guideline, hours: info.guidelineHours }) }}
             </td>
           </tr>

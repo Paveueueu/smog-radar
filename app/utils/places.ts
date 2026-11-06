@@ -1,5 +1,3 @@
-import type { Place } from '#shared/types/air'
-
 export interface SelectedPlace {
   name: string
   lat: number
@@ -40,9 +38,4 @@ export function formatCoords(lat: number, lon: number): string {
   const ns = lat >= 0 ? 'N' : 'S'
   const ew = lon >= 0 ? 'E' : 'W'
   return `${Math.abs(roundCoord(lat)).toFixed(2)}°${ns}, ${Math.abs(roundCoord(lon)).toFixed(2)}°${ew}`
-}
-
-/** "Lesser Poland, Poland": the context line for a search result. */
-export function placeContext(place: Place): string {
-  return [place.region, place.country].filter((part, i, all) => part && all.indexOf(part) === i).join(', ')
 }

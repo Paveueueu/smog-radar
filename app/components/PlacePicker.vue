@@ -1,4 +1,5 @@
 <script setup lang="ts">
+defineProps<{ near?: { lat: number, lon: number } }>()
 const emit = defineEmits<{ select: [place: SelectedPlace] }>()
 const { t } = useI18n()
 
@@ -12,7 +13,7 @@ async function useMyLocation() {
 
 <template>
   <div class="grid gap-3">
-    <PlaceSearch @select="emit('select', $event)" />
+    <PlaceSearch :near="near" @select="emit('select', $event)" />
     <button
       type="button"
       :disabled="pending"

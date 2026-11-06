@@ -3,8 +3,6 @@ import { z } from 'zod'
 import type { Station } from '../../shared/types/air'
 import { EUROPE_BBOX, STATION_MAX_AGE_HOURS } from '../../shared/utils/stations'
 
-export { EUROPE_BBOX }
-
 export const OPENAQ_URL = 'https://api.openaq.org/v3'
 /** OpenAQ parameter id for PM2.5 in µg/m³. */
 export const PM25_PARAMETER = 2

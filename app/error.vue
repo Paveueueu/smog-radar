@@ -14,7 +14,7 @@ const goHome = () => clearError({ redirect: '/' })
 <template>
   <NuxtLayout>
     <section class="grid max-w-xl gap-4 py-10">
-      <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted">
+      <p class="tabular-nums text-xs uppercase tracking-[0.08em] text-muted">
         {{ t('error.code', { code: error.statusCode }) }}
       </p>
       <h1 class="text-4xl font-semibold tracking-tight">

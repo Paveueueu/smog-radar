@@ -1,10 +1,8 @@
 // https://open-meteo.com/en/docs/air-quality-api (CAMS, hourly)
-// https://open-meteo.com/en/docs/geocoding-api
 import { z } from 'zod'
-import type { AirReport, AirSample, Place } from '../../shared/types/air'
+import type { AirReport, AirSample } from '../../shared/types/air'
 
 export const AIR_QUALITY_URL = 'https://air-quality-api.open-meteo.com/v1/air-quality'
-export const GEOCODING_URL = 'https://geocoding-api.open-meteo.com/v1/search'
 
 const VARIABLES = [
   'european_aqi',
@@ -39,10 +37,6 @@ export function airQualityQuery(lat: number, lon: number) {
     // Absolute timestamps, so daylight-saving changes inside the window can't shift hours.
     timeformat: 'unixtime',
   }
-}
-
-export function geocodingQuery(name: string, count: number, language = 'en') {
-  return { name, count, language, format: 'json' }
 }
 
 const value = z.number().nullable()
@@ -117,35 +111,4 @@ export function parseAirQuality(raw: unknown, fetchedAt: Date): AirReport {
     },
     fetchedAt: fetchedAt.toISOString(),
   }
-}
-
-// ---------- geocoding ----------
-
-const GeocodingResponse = z.object({
-  // Absent when nothing matches.
-  results: z.array(z.object({
-    id: z.number(),
-    name: z.string(),
-    latitude: z.number(),
-    longitude: z.number(),
-    country: z.string().optional(),
-    country_code: z.string().optional(),
-    admin1: z.string().optional(),
-    timezone: z.string().optional(),
-  })).optional(),
-})
-
-export function parseGeocoding(raw: unknown): Place[] {
-  const parsed = GeocodingResponse.safeParse(raw)
-  if (!parsed.success) throw new UpstreamFormatError(`Unexpected geocoding response: ${parsed.error.message}`)
-  return (parsed.data.results ?? []).map(r => ({
-    id: r.id,
-    name: r.name,
-    region: r.admin1 ?? null,
-    country: r.country ?? null,
-    countryCode: r.country_code ?? null,
-    lat: r.latitude,
-    lon: r.longitude,
-    timezone: r.timezone ?? null,
-  }))
 }

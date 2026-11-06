@@ -1,7 +1,7 @@
 /** GET /api/stations: latest PM2.5 per OpenAQ station in Europe. 503 without an API key. */
 import type { StationsReport } from '../../shared/types/air'
+import { EUROPE_BBOX } from '../../shared/utils/stations'
 import {
-  EUROPE_BBOX,
   MAX_AGE_HOURS,
   MAX_PAGES,
   OPENAQ_URL,
@@ -19,7 +19,9 @@ import { UPSTREAM_FETCH, upstreamError } from '../utils/upstream'
 const STATIONS_VERSION = 1
 
 // Stations report hourly; refreshing every 30 minutes costs ~20 requests an hour.
-// Stale data keeps being served while a refresh runs in the background.
+const MAX_AGE_S = 60 * 30
+/** Longest a stale map may be served while refreshing. */
+const STALE_LIMIT_S = 60 * 10
 const getStations = defineCachedFunction(
   async (apiKey: string): Promise<StationsReport> => {
     const now = new Date()
@@ -42,8 +44,10 @@ const getStations = defineCachedFunction(
   },
   {
     name: 'stations',
-    maxAge: 60 * 30,
+    maxAge: MAX_AGE_S,
+    // Stale-while-revalidate, but bounded: Nitro alone would serve stale data of any age.
     swr: true,
+    validate: entry => entry.value !== undefined && Date.now() - (entry.mtime ?? 0) < (MAX_AGE_S + STALE_LIMIT_S) * 1000,
     // The key itself must never end up in a cache key or a log.
     getKey: () => `v${STATIONS_VERSION}:europe`,
   },

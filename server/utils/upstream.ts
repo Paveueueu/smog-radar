@@ -1,5 +1,6 @@
 import { UpstreamFormatError } from './open-meteo'
 import { OpenAqFormatError } from './openaq'
+import { PhotonFormatError } from './photon'
 
 export const UPSTREAM_FETCH = { timeout: 8000, retry: 1, retryDelay: 300 } as const
 
@@ -8,7 +9,7 @@ const isFetchError = (e: unknown): e is Error => e instanceof Error && e.name ==
 
 /** Upstream failure → 502; details only in the server log. */
 export function upstreamError(error: unknown, what: string) {
-  if (isFetchError(error) || error instanceof UpstreamFormatError || error instanceof OpenAqFormatError) {
+  if (isFetchError(error) || error instanceof UpstreamFormatError || error instanceof OpenAqFormatError || error instanceof PhotonFormatError) {
     console.error(`[${what}]`, error.message)
     return createError({ statusCode: 502, statusMessage: `${what} is unavailable right now` })
   }

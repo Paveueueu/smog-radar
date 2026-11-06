@@ -27,12 +27,6 @@ const nearestText = computed(() => {
   })
 })
 
-const legend = computed(() =>
-  AQI_BANDS.map((b, i) => ({
-    id: b.id,
-    range: i < PM25_BREAKPOINTS.length - 1 ? `${PM25_BREAKPOINTS[i]}–${PM25_BREAKPOINTS[i + 1]}` : `${PM25_BREAKPOINTS[i]}+`,
-  })),
-)
 const STYLE = {
   light: 'https://tiles.openfreemap.org/styles/positron',
   dark: 'https://tiles.openfreemap.org/styles/dark',
@@ -306,29 +300,36 @@ onBeforeUnmount(() => {
       {{ nearestText }}
     </p>
 
-    <div class="grid gap-2">
-      <p class="text-xs font-medium uppercase tracking-[0.06em] text-muted">
-        {{ t('map.legend') }}
-      </p>
-      <ul class="flex flex-wrap gap-x-4 gap-y-1.5 text-xs">
-        <li v-for="b in legend" :key="b.id" class="flex items-center gap-1.5">
-          <span class="size-3 rounded-sm ring-1 ring-ink/15" :class="BAND_BG[b.id]" aria-hidden="true" />
-          <span>{{ text.band(b.id) }}</span>
-          <span class="font-mono text-muted">{{ b.range }}</span>
-        </li>
-      </ul>
-      <i18n-t v-if="data" keypath="map.note" tag="p" scope="global" class="text-xs text-muted">
+    <div class="grid max-w-sm gap-1.5">
+      <div class="flex h-2 gap-0.5 overflow-hidden rounded-full">
+        <span
+          v-for="b in AQI_BANDS"
+          :key="b.id"
+          :title="text.band(b.id)"
+          class="flex-1"
+          :class="BAND_BG[b.id]"
+        />
+      </div>
+      <div class="flex justify-between text-xs text-muted">
+        <span>{{ text.band(AQI_BANDS[0]!.id) }}</span>
+        <span>{{ text.band(AQI_BANDS.at(-1)!.id) }}</span>
+      </div>
+    </div>
+
+    <p v-if="data" class="text-sm text-muted">
+      <i18n-t keypath="map.sources" tag="span" scope="global">
         <template #n>
-          {{ data.stations.length }}
+          <span class="tabular-nums">{{ data.stations.length }}</span>
         </template>
         <template #source>
           <a href="https://openaq.org" target="_blank" rel="noopener" class="underline decoration-line-strong underline-offset-2 hover:text-ink">OpenAQ</a>
         </template>
-        <template #km>
-          {{ MAX_DISTANCE_KM }}
-        </template>
       </i18n-t>
-    </div>
+      {{ ' ' }}
+      <NuxtLink to="/about" class="text-ink underline decoration-line-strong underline-offset-2 hover:decoration-ink">
+        {{ t('map.how') }}
+      </NuxtLink>
+    </p>
   </div>
 </template>
 

@@ -22,8 +22,8 @@ useSeoMeta({ title: () => t('meta.placeTitle', { place: place.value.name }) })
   <div class="grid gap-6">
     <div class="grid gap-2">
       <div class="flex items-center justify-between gap-3">
-        <PlaceDialog v-model:open="pickerOpen" :place="place.name" @select="select" />
-        <p v-if="updating" role="status" class="flex-none font-mono text-xs text-muted">
+        <PlaceDialog v-model:open="pickerOpen" :place="place.name" :near="place" @select="select" />
+        <p v-if="updating" role="status" class="flex-none tabular-nums text-xs text-muted">
           {{ t('state.updating') }}
         </p>
       </div>

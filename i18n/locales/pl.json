@@ -34,10 +34,9 @@
     "choose": "Wybierz swoje miejsce"
   },
   "summary": {
-    "at": "Jakość powietrza o {hour}",
-    "updated": "aktualizacja {time}",
     "mostly": "głównie {name} ({label})",
-    "noValue": "Brak wartości jakości powietrza dla tej godziny."
+    "noValue": "Brak wartości jakości powietrza dla tej godziny.",
+    "dataTime": "Dane z {hour}, zaktualizowane {time}"
   },
   "band": {
     "good": "Dobra",
@@ -127,13 +126,8 @@
     "cleanestValue": "{range}, średni AQI {aqi}",
     "now": "teraz",
     "noData": "brak danych dla tej godziny",
-    "readout": "AQI {aqi} · {band}",
-    "readoutBy": "AQI {aqi} · {band} · głównie {pollutant}",
-    "legendCleanest": "Najczystszy odcinek",
-    "legendNight": "Noc, nie podpowiadamy",
-    "hintPointer": "Najedź kursorem albo użyj ← →, żeby odczytać godzinę",
-    "hintTouch": "Stuknij słupek, żeby odczytać godzinę",
-    "slider": "Godzina prognozy",
+    "readout": "AQI {aqi}, {band}",
+    "readoutBy": "AQI {aqi}, {band}, głównie {pollutant}",
     "caption": "Prognoza jakości powietrza godzina po godzinie, czas {tz}",
     "colHour": "Godzina",
     "colAqi": "Europejski AQI",
@@ -234,9 +228,7 @@
     "error": "Dane ze stacji są chwilowo niedostępne.",
     "nearest": "Najbliższa stacja {km} km stąd: PM2.5 {value} µg/m³ ({band}), odczyt z {time}.",
     "nearestNone": "W promieniu {km} km od tego miejsca nie ma stacji, więc mapa nie ma tu koloru.",
-    "legend": "PM2.5, µg/m³",
-    "note": "Najnowsze godzinowe PM2.5 z {n} stacji ({source}). Między stacjami kolor jest interpolowany; dalej niż {km} km od stacji go nie ma.",
-    "popup": "PM2.5 {value} µg/m³ · {band}",
+    "popup": "PM2.5 {value} µg/m³, {band}",
     "popupTime": "odczyt z {time}",
     "zoomIn": "Przybliż",
     "zoomOut": "Oddal",
@@ -244,6 +236,8 @@
     "attribution": "Pokaż źródła",
     "windowsHelp": "Użyj Ctrl + kółko, żeby przybliżyć mapę",
     "macHelp": "Użyj ⌘ + kółko, żeby przybliżyć mapę",
-    "mobileHelp": "Przesuwaj mapę dwoma palcami"
+    "mobileHelp": "Przesuwaj mapę dwoma palcami",
+    "sources": "Pomiary z {n} stacji ({source}).",
+    "how": "Jak powstaje mapa"
   }
 }

@@ -18,6 +18,8 @@ const getAirReport = defineCachedFunction(
   {
     name: 'air-report',
     maxAge: 60 * 20,
+    // No stale-while-revalidate: after a quiet night it would serve hours-old data.
+    swr: false,
     // Bump AIR_REPORT_VERSION whenever the AirReport shape changes, so stale entries are never served.
     getKey: (lat: number, lon: number) => `v${AIR_REPORT_VERSION}:${lat}:${lon}`,
   },
