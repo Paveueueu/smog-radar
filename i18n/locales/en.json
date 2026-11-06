@@ -160,7 +160,8 @@
     "retrying": "Trying again…"
   },
   "footer": {
-    "data": "Modelled data from {source} (CAMS European air quality forecast). Not medical advice.",
+    "data": "Modelled data from {source} (CAMS European air quality forecast).",
+    "advice": "Not medical advice.",
     "how": "How it works"
   },
   "error": {

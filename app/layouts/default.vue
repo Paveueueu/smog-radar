@@ -12,13 +12,13 @@ const { t } = useI18n()
     <main id="main" tabindex="-1" class="app-wrap flex-1 pb-16 pt-6 outline-none sm:pt-10">
       <slot />
     </main>
-    <footer class="app-wrap border-t border-line py-6 text-sm text-muted">
-      <i18n-t keypath="footer.data" tag="span" scope="global">
+    <footer class="app-wrap grid justify-items-start gap-1 border-t border-line py-6 text-sm text-muted">
+      <i18n-t keypath="footer.data" tag="p" scope="global">
         <template #source>
           <a href="https://open-meteo.com/en/docs/air-quality-api" class="underline decoration-line-strong underline-offset-2 hover:text-ink" target="_blank" rel="noopener">Open-Meteo</a>
         </template>
       </i18n-t>
-      {{ ' ' }}
+      <p>{{ t('footer.advice') }}</p>
       <NuxtLink to="/about" class="underline decoration-line-strong underline-offset-2 hover:text-ink">
         {{ t('footer.how') }}
       </NuxtLink>
