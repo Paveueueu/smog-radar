@@ -32,36 +32,32 @@ const outlook = computed(() => {
 
 <template>
   <article
-    class="relative flex flex-col overflow-hidden rounded-card border border-line bg-surface p-5 shadow-card sm:p-6"
+    class="relative flex flex-col overflow-hidden rounded-card border border-line bg-surface py-4 pl-5 pr-4 shadow-card"
     :aria-labelledby="`${verdict.activity}-title`"
   >
     <span aria-hidden="true" class="absolute inset-y-0 left-0 w-1" :class="style?.accent ?? 'bg-line-strong'" />
 
-    <div class="flex items-center justify-between gap-3">
-      <h2 :id="`${verdict.activity}-title`" class="flex items-center gap-2 text-sm font-medium text-muted">
-        <IconsActivityIcon :activity="verdict.activity" class="size-5" />
-        {{ t(`activity.${verdict.activity}`) }}
-      </h2>
+    <h2 :id="`${verdict.activity}-title`" class="flex items-center gap-2 text-sm text-muted">
+      <IconsActivityIcon :activity="verdict.activity" class="size-4" />
+      {{ t(`activity.${verdict.activity}`) }}
+      <span class="sr-only">: {{ t(`level.${verdict.level ?? 'unknown'}`) }}</span>
+    </h2>
+
+    <p class="mt-2 flex items-start gap-2 text-2xl font-semibold leading-tight tracking-tight">
       <span
-        class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold"
+        aria-hidden="true"
+        class="mt-1 grid size-6 flex-none place-items-center rounded-full"
         :class="style ? [style.soft, style.text] : 'bg-surface-2 text-muted'"
       >
         <IconsLevelIcon :level="verdict.level" class="size-3.5" />
-        {{ t(`level.${verdict.level ?? 'unknown'}`) }}
       </span>
-    </div>
-
-    <p class="mt-5 text-3xl font-semibold leading-tight tracking-tight sm:text-[2.1rem]">
       {{ headline }}
     </p>
-    <p class="mt-2 text-ink-2">
+    <p class="mt-1.5 text-sm text-ink-2">
       {{ advice }}
     </p>
-
-    <div v-if="outlook" class="mt-auto pt-5">
-      <p class="border-t border-line pt-3 text-sm text-muted">
-        {{ outlook }}
-      </p>
-    </div>
+    <p v-if="outlook" class="mt-2 text-sm text-muted">
+      {{ outlook }}
+    </p>
   </article>
 </template>

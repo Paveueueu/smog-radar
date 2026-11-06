@@ -10,11 +10,8 @@ const rows = computed(() => pollutantRows(props.sample))
 </script>
 
 <template>
-  <section aria-labelledby="pollutants-title" class="rounded-card border border-line bg-surface p-5 shadow-card sm:p-6">
-    <h2 id="pollutants-title" class="text-lg font-semibold">
-      {{ t('pollutants.title') }}
-    </h2>
-    <p class="mt-1 text-sm text-muted">
+  <div>
+    <p class="text-sm text-muted">
       {{ t('pollutants.subtitle') }}
     </p>
 
@@ -60,5 +57,5 @@ const rows = computed(() => pollutantRows(props.sample))
     <p class="mt-6 border-t border-line pt-3 text-xs text-muted">
       {{ t('pollutants.note') }}
     </p>
-  </section>
+  </div>
 </template>

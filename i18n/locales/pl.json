@@ -7,13 +7,7 @@
   },
   "nav": {
     "skip": "Przejdź do treści",
-    "about": "O danych",
-    "main": "Główna"
-  },
-  "theme": {
-    "label": "Motyw",
-    "toLight": "Włącz jasny motyw",
-    "toDark": "Włącz ciemny motyw"
+    "about": "O danych"
   },
   "language": {
     "label": "Język"
@@ -30,7 +24,11 @@
       "denied": "Nie zezwolono na dostęp do lokalizacji. Wyszukaj miejsce.",
       "unavailable": "Twoja lokalizacja jest teraz niedostępna. Wyszukaj miejsce.",
       "timeout": "Ustalanie lokalizacji trwało za długo. Spróbuj ponownie albo wyszukaj miejsce."
-    }
+    },
+    "change": "Zmień miejsce",
+    "dialogTitle": "Wybierz miejsce",
+    "dialogHelp": "Wyszukaj miasto albo użyj swojej lokalizacji.",
+    "close": "Zamknij"
   },
   "summary": {
     "at": "Jakość powietrza o {hour}",
@@ -118,10 +116,10 @@
   },
   "sensitive": {
     "label": "Tryb dla osób wrażliwych na smog",
-    "help": "Astma, choroby serca lub płuc, ciąża, dzieci albo osoby starsze. Stosuje ostrzejsze progi."
+    "help": "Astma, choroby serca lub płuc, ciąża, dzieci albo osoby starsze. Stosuje ostrzejsze progi.",
+    "on": "Włączony tryb dla osób wrażliwych"
   },
   "forecast": {
-    "title": "Najbliższe 24 godziny",
     "cleanest": "Najczystsze {n} godziny:",
     "cleanestValue": "{range}, średni AQI {aqi}",
     "now": "teraz",
@@ -140,7 +138,6 @@
     "cleanestMark": "(najczystszy odcinek)"
   },
   "pollutants": {
-    "title": "Co jest w powietrzu",
     "subtitle": "Ta godzina na tle wytycznych WHO z 2021 roku.",
     "unit": "µg/m³",
     "noData": "brak danych",
@@ -211,5 +208,18 @@
     "guideline": "{value} µg/m³, średnia {hours}-godzinna",
     "privacyTitle": "Prywatność",
     "privacyText": "Bez kont, bez analityki, bez śledzenia. „Moja lokalizacja” pyta przeglądarkę jeden raz; pozycja jest zaokrąglana do ok. 1 km, zanim opuści przeglądarkę, a zaokrąglona pozycja służy tylko do pobrania prognozy z Open-Meteo. Ciasteczka zapamiętują ostatnie miejsce, język i to, czy tryb dla osób wrażliwych jest włączony, żeby strona otwierała się tam, gdzie ją zostawiono."
+  },
+  "settings": {
+    "label": "Ustawienia",
+    "theme": "Motyw",
+    "light": "Jasny",
+    "dark": "Ciemny",
+    "system": "Auto"
+  },
+  "tabs": {
+    "label": "Szczegóły",
+    "forecast": "Najbliższe 24 h",
+    "pollutants": "Zanieczyszczenia",
+    "map": "Mapa"
   }
 }

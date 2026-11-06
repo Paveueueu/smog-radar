@@ -18,8 +18,16 @@ useSeoMeta({ title: () => t('meta.placeTitle', { place: place.value.name }) })
 </script>
 
 <template>
-  <div class="grid gap-8">
-    <PlacePicker @select="select" />
+  <div class="grid gap-6">
+    <div class="grid gap-2">
+      <div class="flex items-center justify-between gap-3">
+        <PlaceDialog :place="place.name" @select="select" />
+        <p v-if="updating" role="status" class="flex-none font-mono text-xs text-muted">
+          {{ t('state.updating') }}
+        </p>
+      </div>
+      <AirSummary v-if="report && assessment && !error" :report="report" :assessment="assessment" />
+    </div>
 
     <LoadError
       v-if="error"
@@ -28,34 +36,20 @@ useSeoMeta({ title: () => t('meta.placeTitle', { place: place.value.name }) })
       @retry="refresh()"
     />
 
-    <div
-      v-else-if="report && assessment"
-      class="relative grid gap-8 transition-opacity"
-      :class="{ 'opacity-60': updating }"
-      :aria-busy="updating"
-    >
-      <p
-        v-if="updating"
-        role="status"
-        class="absolute -top-6 right-0 font-mono text-xs text-muted"
-      >
-        {{ t('state.updating') }}
-      </p>
-
-      <AirSummary :report="report" :assessment="assessment" :place="place.name" />
-
-      <div class="grid gap-4">
-        <div class="grid gap-4 sm:grid-cols-2">
+    <template v-else-if="report && assessment">
+      <div class="grid gap-3 transition-opacity" :class="{ 'opacity-60': updating }" :aria-busy="updating">
+        <div class="grid gap-3 sm:grid-cols-2">
           <VerdictCard :verdict="assessment.walk" :now="report.current.time" :time-zone="report.location.timezone" />
           <VerdictCard :verdict="assessment.windows" :now="report.current.time" :time-zone="report.location.timezone" />
         </div>
-        <SensitiveToggle v-model="profile" class="px-1" />
+        <p v-if="profile === 'sensitive'" class="flex items-center gap-2 text-sm text-muted">
+          <span class="size-2 rounded-full bg-level-caution" aria-hidden="true" />
+          {{ t('sensitive.on') }}
+        </p>
       </div>
 
-      <ForecastTimeline :report="report" :assessment="assessment" />
-
-      <PollutantBreakdown :sample="report.current" />
-    </div>
+      <DetailTabs :report="report" :assessment="assessment" :class="{ 'opacity-60': updating }" />
+    </template>
 
     <div v-else>
       <p role="status" class="sr-only">

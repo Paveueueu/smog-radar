@@ -7,13 +7,7 @@
   },
   "nav": {
     "skip": "Skip to content",
-    "about": "About the data",
-    "main": "Main"
-  },
-  "theme": {
-    "label": "Theme",
-    "toLight": "Switch to light theme",
-    "toDark": "Switch to dark theme"
+    "about": "About the data"
   },
   "language": {
     "label": "Language"
@@ -30,7 +24,11 @@
       "denied": "Location access was denied. Search for a place instead.",
       "unavailable": "Your location isn't available right now. Search for a place instead.",
       "timeout": "Finding your location took too long. Try again or search for a place."
-    }
+    },
+    "change": "Change place",
+    "dialogTitle": "Choose a place",
+    "dialogHelp": "Search for a city or use your location.",
+    "close": "Close"
   },
   "summary": {
     "at": "Air quality at {hour}",
@@ -118,10 +116,10 @@
   },
   "sensitive": {
     "label": "I'm sensitive to air pollution",
-    "help": "Asthma, heart or lung conditions, pregnancy, children or older people. Uses stricter limits."
+    "help": "Asthma, heart or lung conditions, pregnancy, children or older people. Uses stricter limits.",
+    "on": "Sensitive mode is on"
   },
   "forecast": {
-    "title": "Next 24 hours",
     "cleanest": "Cleanest {n} hours:",
     "cleanestValue": "{range}, average AQI {aqi}",
     "now": "now",
@@ -140,7 +138,6 @@
     "cleanestMark": "(cleanest stretch)"
   },
   "pollutants": {
-    "title": "What's in the air",
     "subtitle": "This hour, against the WHO 2021 air quality guidelines.",
     "unit": "µg/m³",
     "noData": "no data",
@@ -211,5 +208,18 @@
     "guideline": "{value} µg/m³, {hours}-hour mean",
     "privacyTitle": "Privacy",
     "privacyText": "No accounts, no analytics, no tracking. “Use my location” asks your browser once; the position is rounded to about 1 km before it leaves your browser, and the rounded position is used only to fetch the forecast from Open-Meteo. Cookies remember your last place, your language and whether sensitive mode is on, so the page opens where you left it."
+  },
+  "settings": {
+    "label": "Settings",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "Auto"
+  },
+  "tabs": {
+    "label": "Details",
+    "forecast": "Next 24 h",
+    "pollutants": "Pollutants",
+    "map": "Map"
   }
 }

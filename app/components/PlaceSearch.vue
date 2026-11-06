@@ -5,7 +5,6 @@ import {
   ComboboxEmpty,
   ComboboxInput,
   ComboboxItem,
-  ComboboxPortal,
   ComboboxRoot,
   ComboboxViewport,
 } from 'reka-ui'
@@ -63,17 +62,18 @@ function onSelect(place: Place | null) {
     by="id"
     ignore-filter
     :reset-search-term-on-blur="false"
-    class="relative min-w-0 flex-1"
+    class="min-w-0 flex-1"
     @update:model-value="onSelect"
   >
     <ComboboxAnchor
-      class="flex h-11 items-center gap-2 rounded-full border border-line bg-surface px-4 shadow-card focus-within:border-line-strong"
+      class="flex h-11 items-center gap-2 rounded-full border border-line bg-bg px-4 focus-within:border-line-strong"
     >
       <svg viewBox="0 0 24 24" class="size-4 flex-none text-muted" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
         <circle cx="11" cy="11" r="6.5" />
         <path d="M20 20l-4.2-4.2" />
       </svg>
       <ComboboxInput
+        id="place-search"
         v-model="term"
         :placeholder="t('place.search')"
         :aria-label="t('place.search')"
@@ -85,12 +85,11 @@ function onSelect(place: Place | null) {
       <span v-if="state === 'loading'" class="size-4 flex-none animate-spin rounded-full motion-reduce:animate-none border-2 border-line-strong border-t-ink" aria-hidden="true" />
     </ComboboxAnchor>
 
-    <ComboboxPortal>
-      <ComboboxContent
+    <!-- Inline, not portalled: a click on a result must not close the dialog. -->
+    <ComboboxContent
         v-if="term.trim().length >= MIN_CHARS"
-        position="popper"
-        :side-offset="6"
-        class="z-50 w-(--reka-combobox-trigger-width) min-w-64 overflow-hidden rounded-2xl border border-line bg-surface p-1.5 shadow-card"
+        position="inline"
+        class="mt-2 overflow-hidden rounded-2xl border border-line bg-surface p-1.5"
       >
         <ComboboxViewport class="max-h-72">
           <ComboboxItem
@@ -115,6 +114,5 @@ function onSelect(place: Place | null) {
           </p>
         </ComboboxViewport>
       </ComboboxContent>
-    </ComboboxPortal>
   </ComboboxRoot>
 </template>
