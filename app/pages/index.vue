@@ -50,7 +50,7 @@ useSeoMeta({ title: () => t('meta.placeTitle', { place: place.value.name }) })
         </p>
       </div>
 
-      <DetailTabs :report="report" :assessment="assessment" :class="{ 'opacity-60': updating }" />
+      <DetailTabs :report="report" :assessment="assessment" :place="place" :class="{ 'opacity-60': updating }" />
     </template>
 
     <div v-else>

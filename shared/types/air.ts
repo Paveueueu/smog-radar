@@ -38,6 +38,24 @@ export interface AirReport {
   fetchedAt: string
 }
 
+export interface Station {
+  id: number
+  lat: number
+  lon: number
+  /** µg/m³; median of the location's sensors */
+  pm25: number
+  /** ISO UTC */
+  time: string
+}
+
+export interface StationsReport {
+  stations: Station[]
+  maxAgeHours: number
+  /** [west, south, east, north] */
+  bbox: [number, number, number, number]
+  fetchedAt: string
+}
+
 /** A place found by name search. */
 export interface Place {
   id: number

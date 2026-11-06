@@ -3,11 +3,11 @@ import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'rek
 import type { AirReport } from '#shared/types/air'
 import type { Assessment } from '~/utils/verdict'
 
-// One detail section at a time, instead of everything stacked down the page.
-defineProps<{ report: AirReport, assessment: Assessment }>()
+// Inactive panels aren't rendered, so the map only loads when its tab opens.
+defineProps<{ report: AirReport, assessment: Assessment, place: SelectedPlace }>()
 const { t } = useI18n()
 
-const TABS = ['forecast', 'pollutants'] as const
+const TABS = ['forecast', 'map', 'pollutants'] as const
 const active = ref<(typeof TABS)[number]>('forecast')
 </script>
 
@@ -29,6 +29,11 @@ const active = ref<(typeof TABS)[number]>('forecast')
 
     <TabsContent value="forecast" class="p-4 focus-visible:outline-offset-[-3px] sm:p-5">
       <ForecastTimeline :report="report" :assessment="assessment" />
+    </TabsContent>
+    <TabsContent value="map" class="p-4 focus-visible:outline-offset-[-3px] sm:p-5">
+      <ClientOnly>
+        <LazyAirMap :place="place" :time-zone="report.location.timezone" />
+      </ClientOnly>
     </TabsContent>
     <TabsContent value="pollutants" class="p-4 focus-visible:outline-offset-[-3px] sm:p-5">
       <PollutantBreakdown :sample="report.current" />

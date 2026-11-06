@@ -210,7 +210,9 @@
     "colGuideline": "Guideline",
     "guideline": "{value} µg/m³, {hours}-hour mean",
     "privacyTitle": "Privacy",
-    "privacyText": "No accounts, no analytics, no tracking. On your first visit the page starts from the approximate city that the hosting provider derives from your network address; the address itself is never stored or sent anywhere. “Use my location” asks your browser once; the position is rounded to about 1 km before it leaves your browser, and the rounded position is used only to fetch the forecast from Open-Meteo. Cookies remember your last place, your language and whether sensitive mode is on, so the page opens where you left it."
+    "privacyText": "No accounts, no analytics, no tracking. On your first visit the page starts from the approximate city that the hosting provider derives from your network address; the address itself is never stored or sent anywhere. “Use my location” asks your browser once; the position is rounded to about 1 km before it leaves your browser, and the rounded position is used only to fetch the forecast from Open-Meteo. Cookies remember your last place, your language and whether sensitive mode is on, so the page opens where you left it.",
+    "mapTitle": "The station map",
+    "mapText": "The map uses measurements, not the model: the latest hourly PM2.5 from air quality stations across Europe, collected by {openaq}. Between stations the value is interpolated (inverse distance weighting); further than {km} km from the nearest station there is no colour, because nothing is measured there. Readings older than {hours} hours are left out. Colours use the same European AQI bands as the rest of the page."
   },
   "settings": {
     "label": "Settings",
@@ -224,5 +226,24 @@
     "forecast": "Next 24 h",
     "pollutants": "Pollutants",
     "map": "Map"
+  },
+  "map": {
+    "aria": "Map of measured PM2.5 around {place}",
+    "loading": "Loading stations…",
+    "errorConfig": "The station map isn't set up on this server.",
+    "error": "Station data isn't available right now.",
+    "nearest": "Nearest station {km} km away: PM2.5 {value} µg/m³ ({band}), reading at {time}.",
+    "nearestNone": "No station within {km} km of this place, so the map has no colour here.",
+    "legend": "PM2.5, µg/m³",
+    "note": "Latest hourly PM2.5 from {n} stations ({source}). Between stations the colour is interpolated; there is none further than {km} km from a station.",
+    "popup": "PM2.5 {value} µg/m³ · {band}",
+    "popupTime": "reading at {time}",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "resetBearing": "Reset bearing to north",
+    "attribution": "Toggle attribution",
+    "windowsHelp": "Use Ctrl + scroll to zoom the map",
+    "macHelp": "Use ⌘ + scroll to zoom the map",
+    "mobileHelp": "Use two fingers to move the map"
   }
 }

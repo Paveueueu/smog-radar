@@ -31,6 +31,11 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  runtimeConfig: {
+    // Server-only. Set NUXT_OPENAQ_API_KEY in .env (never committed) or the host's settings.
+    openaqApiKey: '',
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },
