@@ -55,11 +55,10 @@ const cleanestText = computed(() => {
 
 <template>
   <div>
-    <div>
-      <p v-if="cleanestText" class="text-sm text-muted">
-        {{ t('forecast.cleanest', { n: CLEANEST_HOURS }) }} <span class="font-medium text-ink">{{ cleanestText }}</span>
-      </p>
-    </div>
+    <p v-if="cleanestText" class="grid border-b border-line pb-3 text-sm">
+      <span class="text-muted">{{ t('forecast.cleanest', { n: CLEANEST_HOURS }) }}</span>
+      <span class="font-medium tabular-nums text-ink">{{ cleanestText }}</span>
+    </p>
 
     <!-- Hidden from screen readers; they get the table below. -->
     <div class="mt-6 flex gap-2">
@@ -124,7 +123,7 @@ const cleanestText = computed(() => {
       </div>
     </div>
 
-    <p class="mt-4 flex flex-wrap items-baseline gap-x-2 border-t border-line pt-3 text-sm" aria-hidden="true">
+    <p class="mt-4 grid border-t border-line pt-3 text-sm" aria-hidden="true">
       <span class="font-medium">{{ readout.when }}</span>
       <span class="tabular-nums text-ink-2">{{ readout.text }}</span>
     </p>

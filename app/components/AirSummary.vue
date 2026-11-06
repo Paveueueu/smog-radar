@@ -21,7 +21,10 @@ const mostly = computed(() => {
     <p v-if="assessment.band" class="text-lg">
       <span class="mr-2 inline-block size-3 rounded-full ring-1 ring-ink/15" :class="BAND_BG[assessment.band.id]" aria-hidden="true" />
       <strong class="font-semibold">{{ text.band(assessment.band.id) }}</strong>,
-      <span class="tabular-nums">AQI {{ Math.round(assessment.aqi!) }}</span><template v-if="mostly">, <span class="text-muted">{{ mostly }}</span></template>
+      <span class="tabular-nums">AQI {{ Math.round(assessment.aqi!) }}</span>
+    </p>
+    <p v-if="assessment.band && mostly" class="text-muted first-letter:uppercase">
+      {{ mostly }}
     </p>
     <p v-else class="text-lg text-muted">
       {{ t('summary.noValue') }}
