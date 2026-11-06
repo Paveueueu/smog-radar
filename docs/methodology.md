@@ -13,7 +13,7 @@ Smog Radar is an informational tool, not medical advice.
 
 ## European Air Quality Index
 
-The European AQI (EAQI) is the index used by the European Environment Agency (EEA). Each pollutant gets its own sub-index; the overall index is the highest of them. We name that pollutant as the one driving the air quality.
+The European AQI (EAQI) is the index used by the European Environment Agency (EEA). It covers five pollutants (PM2.5, PM10, NO₂, O₃, SO₂). Each gets its own sub-index; the overall index is the highest of them, and we name that pollutant as the one driving the air quality. SO₂ counts towards the overall index but is not shown on its own: it is low across most of Europe. The EEA defines only the six bands; the 0–100+ numbers are Open-Meteo’s scale for them (hourly values, EEA 2024 bands).
 
 | Band | EAQI |
 |---|---|

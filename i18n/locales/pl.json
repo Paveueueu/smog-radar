@@ -2,12 +2,12 @@
   "meta": {
     "description": "Czy powietrze na zewnątrz nadaje się na spacer albo otwarcie okien? Aktualna jakość powietrza w jednym spojrzeniu.",
     "placeTitle": "{place} - Smog Radar",
-    "aboutTitle": "O danych - Smog Radar",
-    "aboutDescription": "Skąd Smog Radar bierze dane i jak decyduje, czy iść na spacer albo otworzyć okna."
+    "aboutTitle": "Jak to działa - Smog Radar",
+    "aboutDescription": "Skąd Smog Radar bierze dane i jak decyduje, czy iść na spacer i czy otworzyć okna."
   },
   "nav": {
     "skip": "Przejdź do treści",
-    "about": "O danych"
+    "about": "Jak to działa"
   },
   "language": {
     "label": "Język"
@@ -179,36 +179,46 @@
     "sensitive": "Osoby wrażliwe"
   },
   "about": {
-    "back": "← Wróć do radaru",
-    "title": "O danych",
-    "intro": "Smog Radar odpowiada na dwa codzienne pytania: czy iść na spacer i czy otworzyć okna. Opiera się na prognozie jakości powietrza. Poniżej piszemy, skąd biorą się liczby i jak powstają odpowiedzi.",
-    "sourceTitle": "Skąd pochodzą dane",
-    "sourceText": "Dane o jakości powietrza pochodzą z {openMeteo}, które udostępnia europejską prognozę jakości powietrza {cams}: wartości godzinowe na siatce o oczkach ok. 11 km. Wyszukiwanie miejsc korzysta z Photona, opartego na danych OpenStreetMap.",
-    "openMeteo": "Open-Meteo Air Quality API",
-    "modelNote": "{strong} Ruchliwa ulica albo komin sąsiada mogą sprawić, że pod twoimi drzwiami powietrze jest gorsze niż liczba tutaj. Smog Radar to ogólna informacja, a nie porada medyczna.",
-    "modelNoteStrong": "To wartości z modelu, a nie pomiary ze stacji.",
-    "eaqiTitle": "Europejski indeks jakości powietrza",
-    "eaqiText": "Indeks używany w całej UE. Każde zanieczyszczenie (PM2.5, PM10, NO₂, O₃) ma własny podindeks, a ogólny AQI to najwyższy z nich. Dlatego strona podaje, które zanieczyszczenie „ustala indeks”.",
+    "back": "Wróć do radaru",
+    "title": "Jak to działa",
+    "sourceTitle": "Skąd są dane?",
+    "sourceText": "Prognoza pochodzi z {openMeteo}, które udostępnia europejski model jakości powietrza {cams}. Model wylicza wartości na każdą godzinę w kratkach o boku około 11 km.",
+    "openMeteo": "serwisu Open-Meteo",
+    "modelNote": "To wyliczenia modelu, a nie pomiary. Przy ruchliwej ulicy albo obok dymiącego komina powietrze może być gorsze, niż pokazuje aplikacja. Smog Radar daje ogólną informację, nie poradę medyczną.",
+    "eaqiTitle": "Co oznacza AQI?",
+    "eaqiText": "Europejski indeks jakości powietrza (EAQI) ocenia pięć zanieczyszczeń: pył drobny PM2.5, pył PM10, dwutlenek azotu, ozon i dwutlenek siarki. Każde dostaje osobną ocenę, a wynik to najgorsza z nich. Dlatego obok wyniku widać, które zanieczyszczenie go podbija.",
+    "eaqiScale": "Europejska Agencja Środowiska (EEA) dzieli powietrze na sześć klas. Liczby to skala Open-Meteo, która przypisuje każdej klasie przedział. Dwutlenek siarki jest wliczony do wyniku, ale aplikacja nie pokazuje go osobno, bo w większości Europy jego poziom jest niski.",
     "colBand": "Klasa",
-    "colAqi": "Europejski AQI",
+    "colAqi": "AQI",
     "colAnswer": "Odpowiedź",
     "rangeTo": "{from}–{to}",
     "rangeUp": "{from} i więcej",
     "below": "poniżej {n}",
-    "walkBasis": "Opiera się na zaleceniach zdrowotnych Europejskiej Agencji Środowiska dla każdej klasy AQI: większości osób zaleca się ograniczenie intensywnego wysiłku na zewnątrz od klasy „zła”, a osobom wrażliwym od „umiarkowanej”.",
-    "windowsBasis": "EEA nie daje zaleceń co do wietrzenia, więc ta reguła jest nasza. Pomieszczenia i tak potrzebują świeżego powietrza, dlatego środkowa odpowiedź to krótkie wietrzenie, a nie trzymanie okien zamkniętych.",
-    "betterTitle": "Lepsze godziny",
-    "betterText": "Gdy odpowiedź nie jest najlepsza, Smog Radar szuka w prognozie pierwszej godziny, w której byłaby, i zaznacza na wykresie najczystsze {hours} godziny. W obu przypadkach bierze pod uwagę tylko godziny od {from} do {to} czasu lokalnego; nikt nie chce propozycji spaceru o 3 w nocy.",
-    "whoTitle": "Wytyczne WHO",
-    "whoText": "Dla kontekstu każde zanieczyszczenie porównujemy z {who}. To średnie 24-godzinne (lub 8-godzinne), a nasze wartości są godzinowe, więc porównanie jest wskazówką, a nie sprawdzeniem zgodności z normą. Same odpowiedzi opierają się wyłącznie na europejskim AQI.",
+    "walkTitle": "Kiedy iść na spacer?",
+    "walkBasis": "Odpowiedź wynika z zaleceń EEA. Od klasy „Zła” EEA radzi większości osób rozważyć ograniczenie intensywnego wysiłku na zewnątrz, a osobom wrażliwym już od klasy „Umiarkowana”.",
+    "sensitiveNote": "Osoby wrażliwe to m.in. osoby z astmą lub chorobami serca i płuc, dzieci i seniorzy. Ostrzejsze progi włączysz w ustawieniach.",
+    "windowsTitle": "Kiedy otwierać okna?",
+    "windowsBasis": "EEA nie mówi nic o wietrzeniu, więc te progi są założeniem aplikacji. Krótkie wietrzenie zaczyna się przy niższym AQI niż ostrożność przy spacerze. Pomieszczenia i tak trzeba wietrzyć, dlatego przy średnim wyniku aplikacja radzi krótkie wietrzenie, a nie zamknięte okna.",
+    "betterTitle": "Skąd podpowiedź o lepszej godzinie?",
+    "betterText": "Jeśli teraz nie jest najlepiej, aplikacja szuka w prognozie pierwszej pory, w której odpowiedź byłaby najlepsza. Jeśli takiej nie ma, pisze o tym. Na wykresie zaznacza też {hours} najczystsze godziny z rzędu. W obu przypadkach liczą się tylko godziny od {from} do {to} czasu lokalnego.",
+    "mapTitle": "Co pokazuje mapa?",
+    "mapText": "Mapa jako jedyna pokazuje pomiary, a nie model: najnowsze godzinowe stężenia pyłu PM2.5 ze stacji w całej Europie, zbierane przez {openaq}. Są wśród nich stacje państwowe i tanie czujniki. Odczyty starsze niż {hours} godziny są pomijane.",
+    "mapSurface": "Między stacjami kolor jest uśredniany: im bliżej stacji, tym bardziej liczy się jej odczyt. Dalej niż {km} km od najbliższej stacji mapa nie ma koloru, bo nikt tam nie mierzy. Mapa uwzględnia tylko PM2.5, więc może wyglądać lepiej niż ogólny wynik, gdy powietrze psuje np. ozon.",
+    "whoTitle": "A wytyczne WHO?",
+    "whoText": "W zakładce „Zanieczyszczenia” każde stężenie jest porównane z {who}. To zalecenia zdrowotne, a nie przepisy. Dotyczą średnich z 24 godzin (dla ozonu z 8 godzin), a aplikacja pokazuje wartości godzinowe, więc to porównanie jest orientacyjne. Na odpowiedzi o spacerze i oknach wpływa tylko europejski indeks.",
     "who": "wytycznymi WHO z 2021 roku",
     "colPollutant": "Zanieczyszczenie",
-    "colGuideline": "Norma",
-    "guideline": "{value} µg/m³, średnia {hours}-godzinna",
-    "privacyTitle": "Prywatność",
-    "privacyText": "Bez kont, bez analityki, bez śledzenia. Przy pierwszej wizycie strona zaczyna od przybliżonego miasta, które hosting ustala na podstawie adresu sieciowego; sam adres nie jest nigdzie zapisywany ani wysyłany. „Moja lokalizacja” pyta przeglądarkę jeden raz; pozycja jest zaokrąglana do ok. 1 km, zanim opuści przeglądarkę, a zaokrąglona pozycja służy tylko do pobrania prognozy z Open-Meteo. Ciasteczka zapamiętują ostatnie miejsce, język i to, czy tryb dla osób wrażliwych jest włączony, żeby strona otwierała się tam, gdzie ją zostawiono.",
-    "mapTitle": "Mapa stacji",
-    "mapText": "Mapa pokazuje pomiary, a nie model: najnowsze godzinowe PM2.5 ze stacji pomiarowych w całej Europie, zbierane przez {openaq}. Między stacjami wartość jest interpolowana (ważenie odwrotnością odległości); dalej niż {km} km od najbliższej stacji nie ma koloru, bo nic tam nie jest mierzone. Odczyty starsze niż {hours} godziny są pomijane. Kolory używają tych samych klas europejskiego AQI co reszta strony."
+    "colGuideline": "Wytyczna WHO",
+    "guideline": "{value} µg/m³, średnia z {hours} h",
+    "privacyTitle": "Co z prywatnością?",
+    "privacyIntro": "Nie ma kont, analityki ani śledzenia.",
+    "privacy": [
+      "Przy pierwszej wizycie miasto ustala hosting na podstawie adresu IP. Aplikacja dostaje tylko nazwę miasta i przybliżone współrzędne, a adresu nie zapisuje.",
+      "„Moja lokalizacja” prosi przeglądarkę o zgodę. Pozycja jest zaokrąglana do około 1 km, zanim opuści urządzenie.",
+      "Prognozę, wyszukiwanie miejsc (Photon, dane OpenStreetMap) i pomiary ze stacji pobiera serwer aplikacji, więc te serwisy nie widzą Twojego adresu IP. Wyszukiwarka dostaje wpisany tekst i położenie z dokładnością do około 50 km, żeby pokazać najpierw pobliskie miejsca.",
+      "Podkład mapy przeglądarka pobiera bezpośrednio z OpenFreeMap.",
+      "Ciasteczka pamiętają ostatnie miejsce, język i tryb dla osób wrażliwych, a pamięć przeglądarki wybrany motyw."
+    ]
   },
   "settings": {
     "label": "Ustawienia",

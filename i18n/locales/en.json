@@ -2,12 +2,12 @@
   "meta": {
     "description": "Is the air outside good enough for a walk or for opening the windows? Current air quality at a glance.",
     "placeTitle": "{place} - Smog Radar",
-    "aboutTitle": "About the data - Smog Radar",
+    "aboutTitle": "How it works - Smog Radar",
     "aboutDescription": "Where Smog Radar's data comes from and how it decides whether to go for a walk or open the windows."
   },
   "nav": {
     "skip": "Skip to content",
-    "about": "About the data"
+    "about": "How it works"
   },
   "language": {
     "label": "Language"
@@ -179,36 +179,46 @@
     "sensitive": "Sensitive"
   },
   "about": {
-    "back": "← Back to the radar",
-    "title": "About the data",
-    "intro": "Smog Radar answers two everyday questions, whether to go for a walk and whether to open the windows, from an air quality forecast. Here is where the numbers come from and how the answers are made.",
-    "sourceTitle": "Where the data comes from",
-    "sourceText": "Air quality comes from the {openMeteo}, which serves the {cams} European air quality forecast: hourly values on a grid of roughly 11 km. Place search uses Photon, built on OpenStreetMap data.",
-    "openMeteo": "Open-Meteo Air Quality API",
-    "modelNote": "{strong} A busy street or a neighbour's chimney can make the air on your doorstep worse than the number here. Smog Radar is general information, not medical advice.",
-    "modelNoteStrong": "These are modelled values, not station measurements.",
-    "eaqiTitle": "The European Air Quality Index",
-    "eaqiText": "The index used across the EU. Each pollutant (PM2.5, PM10, NO₂, O₃) gets its own sub-index; the overall AQI is the highest of them, which is why the page names the pollutant that “sets the index”.",
+    "back": "Back to the radar",
+    "title": "How it works",
+    "sourceTitle": "Where does the data come from?",
+    "sourceText": "The forecast comes from {openMeteo}, which serves the {cams} European air quality model. The model calculates a value for every hour on a grid of squares about 11 km across.",
+    "openMeteo": "Open-Meteo",
+    "modelNote": "These are model estimates, not measurements. Next to a busy road or a smoking chimney the air can be worse than the app shows. Smog Radar is general information, not medical advice.",
+    "eaqiTitle": "What does AQI mean?",
+    "eaqiText": "The European Air Quality Index (EAQI) rates five pollutants: fine particles PM2.5, particles PM10, nitrogen dioxide, ozone and sulphur dioxide. Each gets its own rating, and the result is the worst of them. That's why the app names the pollutant pushing the number up.",
+    "eaqiScale": "The European Environment Agency (EEA) sorts air into six bands. The numbers are Open-Meteo's scale, which gives each band a range. Sulphur dioxide counts towards the result, but the app doesn't show it separately, since its levels are low across most of Europe.",
     "colBand": "Band",
-    "colAqi": "European AQI",
+    "colAqi": "AQI",
     "colAnswer": "Answer",
     "rangeTo": "{from}–{to}",
     "rangeUp": "{from} and above",
     "below": "below {n}",
-    "walkBasis": "Follows the European Environment Agency's health advice for each AQI band: most people are advised to cut down intense outdoor activity from “poor”, sensitive people from “moderate”.",
-    "windowsBasis": "The EEA gives no advice on ventilation, so this rule is ours. Rooms still need fresh air, so the middle answer is a short airing rather than keeping the windows shut.",
-    "betterTitle": "Better times",
-    "betterText": "When an answer isn't the best one, Smog Radar looks ahead for the first hour that would be, and highlights the cleanest {hours} hours on the chart. Both only consider {from} to {to} local time; nobody wants a walk suggestion for 3 a.m.",
-    "whoTitle": "WHO guidelines",
-    "whoText": "For context, each pollutant is compared with the {who}. Those are 24-hour (or 8-hour) averages and our values are hourly, so the comparison is a pointer, not a compliance check. The answers themselves use the European AQI only.",
+    "walkTitle": "When is it fine to go for a walk?",
+    "walkBasis": "The answer follows the EEA's advice. From “Poor” the EEA suggests most people consider cutting down intense outdoor activity, and sensitive people from “Moderate”.",
+    "sensitiveNote": "Sensitive people include those with asthma or heart and lung conditions, children and older people. You can switch to the stricter thresholds in the settings.",
+    "windowsTitle": "When should I open the windows?",
+    "windowsBasis": "The EEA says nothing about airing rooms, so these thresholds are the app's own. A short airing starts at a lower AQI than the cautious walk answer. Rooms still need fresh air, so for a middling result the app suggests a short airing rather than keeping the windows shut.",
+    "betterTitle": "Where does the better-time tip come from?",
+    "betterText": "If now isn't the best time, the app looks through the forecast for the first time the answer would be the best one. If there is none, it says so. The chart also marks the cleanest {hours} hours in a row. Both only count hours from {from} to {to} local time.",
+    "mapTitle": "What does the map show?",
+    "mapText": "The map is the only part that shows measurements rather than the model: the latest hourly PM2.5 readings from stations across Europe, collected by {openaq}. They include official monitors and low-cost sensors. Readings older than {hours} hours are left out.",
+    "mapSurface": "Between stations the colour is averaged: the closer a station, the more its reading counts. Further than {km} km from the nearest station there is no colour, because nobody measures there. The map covers PM2.5 only, so it can look better than the overall result when, say, ozone is the problem.",
+    "whoTitle": "What about the WHO guidelines?",
+    "whoText": "The “Pollutants” tab compares each concentration with the {who}. They are health recommendations, not law. They refer to 24-hour averages (8-hour for ozone), while the app shows hourly values, so the comparison is only a rough guide. The walk and window answers use the European index only.",
     "who": "WHO 2021 air quality guidelines",
     "colPollutant": "Pollutant",
-    "colGuideline": "Guideline",
+    "colGuideline": "WHO guideline",
     "guideline": "{value} µg/m³, {hours}-hour mean",
-    "privacyTitle": "Privacy",
-    "privacyText": "No accounts, no analytics, no tracking. On your first visit the page starts from the approximate city that the hosting provider derives from your network address; the address itself is never stored or sent anywhere. “Use my location” asks your browser once; the position is rounded to about 1 km before it leaves your browser, and the rounded position is used only to fetch the forecast from Open-Meteo. Cookies remember your last place, your language and whether sensitive mode is on, so the page opens where you left it.",
-    "mapTitle": "The station map",
-    "mapText": "The map uses measurements, not the model: the latest hourly PM2.5 from air quality stations across Europe, collected by {openaq}. Between stations the value is interpolated (inverse distance weighting); further than {km} km from the nearest station there is no colour, because nothing is measured there. Readings older than {hours} hours are left out. Colours use the same European AQI bands as the rest of the page."
+    "privacyTitle": "What about privacy?",
+    "privacyIntro": "There are no accounts, no analytics and no tracking.",
+    "privacy": [
+      "On your first visit the hosting provider works out your city from your IP address. The app only gets the city's name and rough coordinates, and doesn't store the address.",
+      "“Use my location” asks your browser for permission. The position is rounded to about 1 km before it leaves your device.",
+      "The forecast, place search (Photon, OpenStreetMap data) and station readings are fetched by the app's server, so those services never see your IP address. The place search gets what you typed and your position to within about 50 km, so nearby places come first.",
+      "Your browser loads the map background directly from OpenFreeMap.",
+      "Cookies remember your last place, your language and sensitive mode; browser storage remembers the theme."
+    ]
   },
   "settings": {
     "label": "Settings",
