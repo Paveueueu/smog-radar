@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const emit = defineEmits<{ select: [place: SelectedPlace] }>()
+const { t } = useI18n()
 
 const { locate, pending, error } = useDeviceLocation()
 
@@ -25,11 +26,11 @@ async function useMyLocation() {
           <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
           <circle cx="12" cy="12" r="7" />
         </svg>
-        <span class="max-sm:sr-only">{{ pending ? 'Locating…' : 'Use my location' }}</span>
+        <span class="max-sm:sr-only">{{ pending ? t('place.locating') : t('place.useMyLocation') }}</span>
       </button>
     </div>
     <p v-if="error" role="status" class="px-4 text-sm text-level-bad-text">
-      {{ error }}
+      {{ t(`place.geo.${error}`) }}
     </p>
   </div>
 </template>

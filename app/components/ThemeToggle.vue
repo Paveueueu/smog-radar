@@ -1,12 +1,13 @@
 <script setup lang="ts">
 const colorMode = useColorMode()
+const { t } = useI18n()
 
 // The resolved mode is only known in the browser; render a neutral label until then.
 const mounted = useMounted()
 const isDark = computed(() => colorMode.value === 'dark')
 const label = computed(() => {
-  if (!mounted.value) return 'Theme'
-  return isDark.value ? 'Switch to light theme' : 'Switch to dark theme'
+  if (!mounted.value) return t('theme.label')
+  return isDark.value ? t('theme.toLight') : t('theme.toDark')
 })
 
 function toggle() {

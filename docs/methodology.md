@@ -1,6 +1,6 @@
 # Methodology
 
-How Smog Radar turns an air quality forecast into "go for a walk?" and "open the windows?". The rules live in `app/utils/verdict.ts`.
+How Smog Radar turns an air quality forecast into "go for a walk?" and "open the windows?". The rules live in `app/utils/verdict.ts`. The wording of each answer, in English and Polish, is in `i18n/locales/` under `verdict.*`.
 
 Smog Radar is an informational tool, not medical advice.
 

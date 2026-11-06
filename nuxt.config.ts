@@ -11,7 +11,23 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@vueuse/nuxt',
     'reka-ui/nuxt',
+    '@nuxtjs/i18n',
   ],
+
+  // Language from Accept-Language, then a cookie; the URL is the same in both.
+  i18n: {
+    strategy: 'no_prefix',
+    defaultLocale: 'en',
+    locales: [
+      { code: 'en', language: 'en-GB', name: 'English', file: 'en.json' },
+      { code: 'pl', language: 'pl-PL', name: 'Polski', file: 'pl.json' },
+    ],
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'smog-radar-lang',
+      fallbackLocale: 'en',
+    },
+  },
 
   css: ['~/assets/css/main.css'],
 
@@ -21,11 +37,9 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      htmlAttrs: { lang: 'en' },
       title: 'Smog Radar',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
-        { name: 'description', content: 'Is the air outside good enough for a walk or for opening the windows? Current air quality at a glance.' },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },

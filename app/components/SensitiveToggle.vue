@@ -2,6 +2,7 @@
 import { SwitchRoot, SwitchThumb } from 'reka-ui'
 
 const profile = defineModel<Profile>({ required: true })
+const { t } = useI18n()
 </script>
 
 <template>
@@ -19,9 +20,9 @@ const profile = defineModel<Profile>({ required: true })
       />
     </SwitchRoot>
     <div>
-      <label for="sensitive" class="cursor-pointer font-medium">I'm sensitive to air pollution</label>
+      <label for="sensitive" class="cursor-pointer font-medium">{{ t('sensitive.label') }}</label>
       <p id="sensitive-help" class="text-sm text-muted">
-        Asthma, heart or lung conditions, pregnancy, children or older people. Uses stricter limits.
+        {{ t('sensitive.help') }}
       </p>
     </div>
   </div>

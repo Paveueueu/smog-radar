@@ -4,9 +4,12 @@ import type { Assessment } from '~/utils/verdict'
 
 const props = defineProps<{ report: AirReport, assessment: Assessment }>()
 
+const { t, locale } = useI18n()
+const text = useAirText()
+
 const tz = computed(() => props.report.location.timezone)
 const now = computed(() => props.report.current.time)
-const timeline = computed(() => buildTimeline(props.report, props.assessment.cleanest))
+const timeline = computed(() => buildTimeline(props.report, props.assessment.cleanest, locale.value))
 
 // ---------- selection: pointer, touch and arrow keys all move the same readout ----------
 
@@ -29,18 +32,23 @@ function onLeave(e: PointerEvent) {
 const readout = computed(() => {
   const col = timeline.value.columns[selected.value]!
   const sample = props.report.hourly[selected.value]!
-  const when = col.isNow ? `Now (${col.clock})` : formatHour(col.time, now.value, tz.value)
-  if (col.aqi === null) return { when, text: 'no data for this hour' }
-  const band = aqiBand(col.aqi).label
+  const when = col.isNow ? t('time.now', { clock: col.clock }) : text.hour(col.time, now.value, tz.value)
+  if (col.aqi === null) return { when, text: t('forecast.noData') }
+  const band = text.band(aqiBand(col.aqi).id)
+  const aqi = Math.round(col.aqi)
   const dominant = dominantPollutant(sample)
-  const by = dominant ? ` · mostly ${POLLUTANT_INFO[dominant].label}` : ''
-  return { when, text: `AQI ${Math.round(col.aqi)} · ${band}${by}` }
+  return {
+    when,
+    text: dominant
+      ? t('forecast.readoutBy', { aqi, band, pollutant: POLLUTANT_INFO[dominant].label })
+      : t('forecast.readout', { aqi, band }),
+  }
 })
 
 const cleanestText = computed(() => {
   const c = props.assessment.cleanest
   if (!c) return null
-  return `${formatRange(c.start, c.end, now.value, tz.value)}, average AQI ${Math.round(c.meanAqi)}`
+  return t('forecast.cleanestValue', { range: text.range(c.start, c.end, now.value, tz.value), aqi: Math.round(c.meanAqi) })
 })
 </script>
 
@@ -48,10 +56,10 @@ const cleanestText = computed(() => {
   <section aria-labelledby="forecast-title" class="rounded-card border border-line bg-surface p-5 shadow-card sm:p-6">
     <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
       <h2 id="forecast-title" class="text-lg font-semibold">
-        Next 24 hours
+        {{ t('forecast.title') }}
       </h2>
       <p v-if="cleanestText" class="text-sm text-muted">
-        Cleanest {{ CLEANEST_HOURS }} hours: <span class="font-medium text-ink">{{ cleanestText }}</span>
+        {{ t('forecast.cleanest', { n: CLEANEST_HOURS }) }} <span class="font-medium text-ink">{{ cleanestText }}</span>
       </p>
     </div>
 
@@ -71,7 +79,7 @@ const cleanestText = computed(() => {
         <div
           role="slider"
           tabindex="0"
-          aria-label="Hour of the forecast"
+          :aria-label="t('forecast.slider')"
           aria-valuemin="0"
           :aria-valuemax="timeline.columns.length - 1"
           :aria-valuenow="selected"
@@ -103,7 +111,7 @@ const cleanestText = computed(() => {
               @pointerdown="selected = i"
             >
               <span v-if="col.dayLabel" class="absolute -top-5 left-1 font-mono text-[10px] text-muted">{{ col.dayLabel }}</span>
-              <span v-if="col.isNow" class="absolute -top-5 font-mono text-[10px] font-semibold text-ink">now</span>
+              <span v-if="col.isNow" class="absolute -top-5 font-mono text-[10px] font-semibold text-ink">{{ t('forecast.now') }}</span>
               <span
                 v-if="col.band"
                 class="w-full rounded-t-[3px] transition-[outline-color] duration-100"
@@ -134,43 +142,43 @@ const cleanestText = computed(() => {
 
     <ul class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted">
       <li class="flex items-center gap-1.5">
-        <span class="size-3 rounded-sm bg-level-good/25" aria-hidden="true" />Cleanest stretch
+        <span class="size-3 rounded-sm bg-level-good/25" aria-hidden="true" />{{ t('forecast.legendCleanest') }}
       </li>
       <li class="flex items-center gap-1.5">
-        <span class="size-3 rounded-sm bg-ink/10" aria-hidden="true" />Night, not suggested
+        <span class="size-3 rounded-sm bg-ink/10" aria-hidden="true" />{{ t('forecast.legendNight') }}
       </li>
       <li class="max-sm:hidden">
-        Hover or use ← → to read an hour
+        {{ t('forecast.hintPointer') }}
       </li>
       <li class="sm:hidden">
-        Tap a bar to read an hour
+        {{ t('forecast.hintTouch') }}
       </li>
     </ul>
 
     <!-- A div, not sr-only on the table: a table ignores the 1px box and widens the page. -->
     <div class="sr-only">
       <table>
-        <caption>Air quality forecast by hour, {{ tz }} time</caption>
+        <caption>{{ t('forecast.caption', { tz }) }}</caption>
         <thead>
           <tr>
             <th scope="col">
-              Hour
+              {{ t('forecast.colHour') }}
             </th>
             <th scope="col">
-              European AQI
+              {{ t('forecast.colAqi') }}
             </th>
             <th scope="col">
-              Band
+              {{ t('forecast.colBand') }}
             </th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="col in timeline.columns" :key="col.time">
             <th scope="row">
-              {{ col.isNow ? `Now, ${col.clock}` : formatHour(col.time, now, tz) }}{{ col.inCleanest ? ' (cleanest stretch)' : '' }}
+              {{ col.isNow ? t('time.now', { clock: col.clock }) : text.hour(col.time, now, tz) }}{{ col.inCleanest ? ` ${t('forecast.cleanestMark')}` : '' }}
             </th>
-            <td>{{ col.aqi === null ? 'no data' : Math.round(col.aqi) }}</td>
-            <td>{{ col.aqi === null ? '' : aqiBand(col.aqi).label }}</td>
+            <td>{{ col.aqi === null ? t('pollutants.noData') : Math.round(col.aqi) }}</td>
+            <td>{{ col.aqi === null ? '' : text.band(aqiBand(col.aqi).id) }}</td>
           </tr>
         </tbody>
       </table>

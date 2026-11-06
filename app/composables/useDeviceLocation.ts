@@ -1,18 +1,16 @@
-/** One-shot device location with readable errors. */
+/** Message key: place.geo.<reason> */
+export type LocationError = 'unsupported' | 'denied' | 'unavailable' | 'timeout'
+
+const BY_CODE: Record<number, LocationError> = { 1: 'denied', 2: 'unavailable', 3: 'timeout' }
+
 export function useDeviceLocation() {
   const pending = ref(false)
-  const error = ref<string | null>(null)
-
-  const MESSAGES: Record<number, string> = {
-    1: 'Location access was denied. Search for a place instead.',
-    2: 'Your location isn\'t available right now. Search for a place instead.',
-    3: 'Finding your location took too long. Try again or search for a place.',
-  }
+  const error = ref<LocationError | null>(null)
 
   function locate(): Promise<{ lat: number, lon: number } | null> {
     error.value = null
     if (!import.meta.client || !('geolocation' in navigator)) {
-      error.value = 'This browser can\'t share your location. Search for a place instead.'
+      error.value = 'unsupported'
       return Promise.resolve(null)
     }
     pending.value = true
@@ -24,7 +22,7 @@ export function useDeviceLocation() {
         },
         (err) => {
           pending.value = false
-          error.value = MESSAGES[err.code] ?? MESSAGES[2]!
+          error.value = BY_CODE[err.code] ?? 'unavailable'
           resolve(null)
         },
         { enableHighAccuracy: false, timeout: 10_000, maximumAge: 10 * 60_000 },

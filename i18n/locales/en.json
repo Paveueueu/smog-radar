@@ -1,0 +1,215 @@
+{
+  "meta": {
+    "description": "Is the air outside good enough for a walk or for opening the windows? Current air quality at a glance.",
+    "placeTitle": "{place} - Smog Radar",
+    "aboutTitle": "About the data - Smog Radar",
+    "aboutDescription": "Where Smog Radar's data comes from and how it decides whether to go for a walk or open the windows."
+  },
+  "nav": {
+    "skip": "Skip to content",
+    "about": "About the data",
+    "main": "Main"
+  },
+  "theme": {
+    "label": "Theme",
+    "toLight": "Switch to light theme",
+    "toDark": "Switch to dark theme"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "place": {
+    "search": "Search for a city",
+    "noMatch": "No places match “{query}”.",
+    "searching": "Searching…",
+    "searchDown": "Place search isn't available right now. Try again in a moment.",
+    "useMyLocation": "Use my location",
+    "locating": "Locating…",
+    "geo": {
+      "unsupported": "This browser can't share your location. Search for a place instead.",
+      "denied": "Location access was denied. Search for a place instead.",
+      "unavailable": "Your location isn't available right now. Search for a place instead.",
+      "timeout": "Finding your location took too long. Try again or search for a place."
+    }
+  },
+  "summary": {
+    "at": "Air quality at {hour}",
+    "updated": "updated {time}",
+    "mostly": "mostly {name} ({label})",
+    "noValue": "No air quality value for this hour."
+  },
+  "band": {
+    "good": "Good",
+    "fair": "Fair",
+    "moderate": "Moderate",
+    "poor": "Poor",
+    "very-poor": "Very poor",
+    "extremely-poor": "Extremely poor"
+  },
+  "level": {
+    "good": "Good",
+    "caution": "Caution",
+    "bad": "Avoid",
+    "unknown": "Unknown"
+  },
+  "activity": {
+    "walk": "Going for a walk",
+    "windows": "Opening the windows"
+  },
+  "verdict": {
+    "walk": {
+      "good": {
+        "headline": "Yes, go for a walk",
+        "advice": {
+          "general": "Enjoy your usual outdoor activities.",
+          "sensitive": "Fine for outdoor activities, even if you are sensitive to air pollution."
+        }
+      },
+      "caution": {
+        "headline": "Take it easy",
+        "advice": {
+          "general": "A walk is fine. Cut down on intense exercise outside, especially if your eyes or throat get irritated.",
+          "sensitive": "Keep it to a gentle walk and skip strenuous exercise outside."
+        }
+      },
+      "bad": {
+        "headline": "Not now",
+        "advice": {
+          "general": "Limit time outside and avoid exercising outdoors.",
+          "sensitive": "Stay in if you can and avoid physical activity outdoors."
+        }
+      }
+    },
+    "windows": {
+      "good": {
+        "headline": "Open the windows",
+        "advice": {
+          "general": "The air outside is clean enough to ventilate freely.",
+          "sensitive": "The air outside is clean enough to ventilate freely."
+        }
+      },
+      "caution": {
+        "headline": "Short airing only",
+        "advice": {
+          "general": "Air out for 5–10 minutes, then close the windows.",
+          "sensitive": "Air out briefly, then close the windows."
+        }
+      },
+      "bad": {
+        "headline": "Keep them closed",
+        "advice": {
+          "general": "Ventilate when the air improves.",
+          "sensitive": "Ventilate when the air improves."
+        }
+      }
+    },
+    "noData": {
+      "headline": "No data right now",
+      "advice": "The air quality model has no value for this hour."
+    },
+    "nextGood": "Next good hour: {hour}",
+    "noBetter": "No better hour in the next 24 hours"
+  },
+  "time": {
+    "tomorrow": "tomorrow {clock}",
+    "weekday": "{day} {clock}",
+    "range": "{from}–{to}",
+    "now": "Now ({clock})"
+  },
+  "sensitive": {
+    "label": "I'm sensitive to air pollution",
+    "help": "Asthma, heart or lung conditions, pregnancy, children or older people. Uses stricter limits."
+  },
+  "forecast": {
+    "title": "Next 24 hours",
+    "cleanest": "Cleanest {n} hours:",
+    "cleanestValue": "{range}, average AQI {aqi}",
+    "now": "now",
+    "noData": "no data for this hour",
+    "readout": "AQI {aqi} · {band}",
+    "readoutBy": "AQI {aqi} · {band} · mostly {pollutant}",
+    "legendCleanest": "Cleanest stretch",
+    "legendNight": "Night, not suggested",
+    "hintPointer": "Hover or use ← → to read an hour",
+    "hintTouch": "Tap a bar to read an hour",
+    "slider": "Hour of the forecast",
+    "caption": "Air quality forecast by hour, {tz} time",
+    "colHour": "Hour",
+    "colAqi": "European AQI",
+    "colBand": "Band",
+    "cleanestMark": "(cleanest stretch)"
+  },
+  "pollutants": {
+    "title": "What's in the air",
+    "subtitle": "This hour, against the WHO 2021 air quality guidelines.",
+    "unit": "µg/m³",
+    "noData": "no data",
+    "setsIndex": "sets the index",
+    "below": "{pct}% of the WHO guideline",
+    "above": "{x}× the WHO guideline",
+    "note": "The tick marks the guideline: a 24-hour mean (8-hour for ozone). These are hourly values, so treat the comparison as a pointer, not a compliance check. The answers above use the European AQI only."
+  },
+  "pollutant": {
+    "pm2_5": "Fine particulate matter",
+    "pm10": "Coarse particulate matter",
+    "no2": "Nitrogen dioxide",
+    "o3": "Ozone"
+  },
+  "state": {
+    "loading": "Loading air quality…",
+    "updating": "Updating…",
+    "errorTitle": "No air quality data right now",
+    "errorBadPlace": "That location doesn't look right. Search for a place instead.",
+    "errorUpstream": "We couldn't reach the air quality service. It's usually back within a few minutes.",
+    "retry": "Try again",
+    "retrying": "Trying again…"
+  },
+  "footer": {
+    "data": "Modelled data from {source} (CAMS European air quality forecast). Not medical advice.",
+    "how": "How it works"
+  },
+  "error": {
+    "code": "Error {code}",
+    "notFoundTitle": "There's nothing on this page",
+    "notFoundText": "The address may be mistyped, or the page has moved.",
+    "otherTitle": "Something went wrong",
+    "otherText": "Please try again in a moment.",
+    "home": "Check the air",
+    "notFoundMeta": "Page not found - Smog Radar",
+    "otherMeta": "Something went wrong - Smog Radar"
+  },
+  "profile": {
+    "general": "Most people",
+    "sensitive": "Sensitive"
+  },
+  "about": {
+    "back": "← Back to the radar",
+    "title": "About the data",
+    "intro": "Smog Radar answers two everyday questions, whether to go for a walk and whether to open the windows, from an air quality forecast. Here is where the numbers come from and how the answers are made.",
+    "sourceTitle": "Where the data comes from",
+    "sourceText": "Air quality comes from the {openMeteo}, which serves the {cams} European air quality forecast: hourly values on a grid of roughly 11 km. Place search uses Open-Meteo's geocoding.",
+    "openMeteo": "Open-Meteo Air Quality API",
+    "modelNote": "{strong} A busy street or a neighbour's chimney can make the air on your doorstep worse than the number here. Smog Radar is general information, not medical advice.",
+    "modelNoteStrong": "These are modelled values, not station measurements.",
+    "eaqiTitle": "The European Air Quality Index",
+    "eaqiText": "The index used across the EU. Each pollutant (PM2.5, PM10, NO₂, O₃) gets its own sub-index; the overall AQI is the highest of them, which is why the page names the pollutant that “sets the index”.",
+    "colBand": "Band",
+    "colAqi": "European AQI",
+    "colAnswer": "Answer",
+    "rangeTo": "{from}–{to}",
+    "rangeUp": "{from} and above",
+    "below": "below {n}",
+    "walkBasis": "Follows the European Environment Agency's health advice for each AQI band: most people are advised to cut down intense outdoor activity from “poor”, sensitive people from “moderate”.",
+    "windowsBasis": "The EEA gives no advice on ventilation, so this rule is ours. Rooms still need fresh air, so the middle answer is a short airing rather than keeping the windows shut.",
+    "betterTitle": "Better times",
+    "betterText": "When an answer isn't the best one, Smog Radar looks ahead for the first hour that would be, and highlights the cleanest {hours} hours on the chart. Both only consider {from} to {to} local time; nobody wants a walk suggestion for 3 a.m.",
+    "whoTitle": "WHO guidelines",
+    "whoText": "For context, each pollutant is compared with the {who}. Those are 24-hour (or 8-hour) averages and our values are hourly, so the comparison is a pointer, not a compliance check. The answers themselves use the European AQI only.",
+    "who": "WHO 2021 air quality guidelines",
+    "colPollutant": "Pollutant",
+    "colGuideline": "Guideline",
+    "guideline": "{value} µg/m³, {hours}-hour mean",
+    "privacyTitle": "Privacy",
+    "privacyText": "No accounts, no analytics, no tracking. “Use my location” asks your browser once; the position is rounded to about 1 km before it leaves your browser, and the rounded position is used only to fetch the forecast from Open-Meteo. Cookies remember your last place, your language and whether sensitive mode is on, so the page opens where you left it."
+  }
+}

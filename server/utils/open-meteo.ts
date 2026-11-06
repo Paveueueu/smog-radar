@@ -41,8 +41,8 @@ export function airQualityQuery(lat: number, lon: number) {
   }
 }
 
-export function geocodingQuery(name: string, count: number) {
-  return { name, count, language: 'en', format: 'json' }
+export function geocodingQuery(name: string, count: number, language = 'en') {
+  return { name, count, language, format: 'json' }
 }
 
 const value = z.number().nullable()

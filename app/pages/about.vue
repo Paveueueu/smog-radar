@@ -1,87 +1,77 @@
 <script setup lang="ts">
 // Numbers come from the same constants the answers use.
+const { t } = useI18n()
+const text = useAirText()
+
 useSeoMeta({
-  title: 'About the data - Smog Radar',
-  description: 'Where Smog Radar\'s data comes from and how it decides whether to go for a walk or open the windows.',
+  title: () => t('meta.aboutTitle'),
+  description: () => t('meta.aboutDescription'),
 })
 
-const PROFILES: { id: Profile, label: string }[] = [
-  { id: 'general', label: 'Most people' },
-  { id: 'sensitive', label: 'Sensitive' },
-]
+const PROFILES: Profile[] = ['general', 'sensitive']
+const ACTIVITIES: Activity[] = ['walk', 'windows']
+const LEVELS: Level[] = ['good', 'caution', 'bad']
 
-const ACTIVITIES: { id: Activity, title: string, answers: [string, string, string], basis: string }[] = [
-  {
-    id: 'walk',
-    title: 'Going for a walk',
-    answers: ['Yes, go for a walk', 'Take it easy', 'Not now'],
-    basis: 'Follows the European Environment Agency\'s health advice for each AQI band: most people are advised to cut down intense outdoor activity from "poor", sensitive people from "moderate".',
-  },
-  {
-    id: 'windows',
-    title: 'Opening the windows',
-    answers: ['Open the windows', 'Short airing only', 'Keep them closed'],
-    basis: 'The EEA gives no advice on ventilation, so this rule is ours. Rooms still need fresh air, so the middle answer is a short airing rather than keeping the windows shut.',
-  },
-]
-
-function ranges(activity: Activity, profile: Profile): [string, string, string] {
-  const t = THRESHOLDS[activity][profile]
-  return [`below ${t.caution}`, `${t.caution}–${t.bad - 1}`, `${t.bad} and above`]
+function range(activity: Activity, profile: Profile, level: Level): string {
+  const th = THRESHOLDS[activity][profile]
+  if (level === 'good') return t('about.below', { n: th.caution })
+  if (level === 'caution') return t('about.rangeTo', { from: th.caution, to: th.bad - 1 })
+  return t('about.rangeUp', { from: th.bad })
 }
 
 const bandRange = (b: { min: number, max: number }) =>
-  Number.isFinite(b.max) ? `${b.min}–${b.max - 1}` : `${b.min} and above`
+  Number.isFinite(b.max) ? t('about.rangeTo', { from: b.min, to: b.max - 1 }) : t('about.rangeUp', { from: b.min })
+
+const clock = (h: number) => `${String(h).padStart(2, '0')}:00`
 </script>
 
 <template>
   <article class="prose-like mx-auto grid max-w-2xl gap-10">
     <header>
       <NuxtLink to="/" class="text-sm text-muted underline decoration-line-strong underline-offset-2 hover:text-ink">
-        ← Back to the radar
+        {{ t('about.back') }}
       </NuxtLink>
       <h1 class="mt-4 text-4xl font-semibold tracking-tight">
-        About the data
+        {{ t('about.title') }}
       </h1>
-      <p class="mt-3 text-lg text-ink-2">
-        Smog Radar answers two everyday questions, whether to go for a walk and whether to open the windows,
-        from an air quality forecast. Here is where the numbers come from and how the answers are made.
+      <p class="mt-3 text-lg">
+        {{ t('about.intro') }}
       </p>
     </header>
 
     <section class="grid gap-3">
       <h2 class="text-xl font-semibold">
-        Where the data comes from
+        {{ t('about.sourceTitle') }}
       </h2>
-      <p>
-        Air quality comes from the
-        <a href="https://open-meteo.com/en/docs/air-quality-api" target="_blank" rel="noopener">Open-Meteo Air Quality API</a>,
-        which serves the <a href="https://atmosphere.copernicus.eu/" target="_blank" rel="noopener">CAMS</a> European air quality forecast:
-        hourly values on a grid of roughly 11 km. Place search uses Open-Meteo's geocoding.
-      </p>
-      <p class="rounded-xl border border-line bg-surface p-4 text-ink-2">
-        These are <strong class="text-ink">modelled values, not station measurements</strong>. A busy street or a neighbour's chimney
-        can make the air on your doorstep worse than the number here. Smog Radar is general information, not medical advice.
-      </p>
+      <i18n-t keypath="about.sourceText" tag="p" scope="global">
+        <template #openMeteo>
+          <a href="https://open-meteo.com/en/docs/air-quality-api" target="_blank" rel="noopener">{{ t('about.openMeteo') }}</a>
+        </template>
+        <template #cams>
+          <a href="https://atmosphere.copernicus.eu/" target="_blank" rel="noopener">CAMS</a>
+        </template>
+      </i18n-t>
+      <i18n-t keypath="about.modelNote" tag="p" scope="global" class="rounded-xl border border-line bg-surface p-4">
+        <template #strong>
+          <strong class="text-ink">{{ t('about.modelNoteStrong') }}</strong>
+        </template>
+      </i18n-t>
     </section>
 
     <section class="grid gap-3">
       <h2 class="text-xl font-semibold">
-        The European Air Quality Index
+        {{ t('about.eaqiTitle') }}
       </h2>
-      <p>
-        The index used across the EU. Each pollutant (PM2.5, PM10, NO₂, O₃) gets its own sub-index; the overall
-        AQI is the highest of them, which is why the page names the pollutant that "sets the index".
-      </p>
+      <p>{{ t('about.eaqiText') }}</p>
       <table class="data-table">
         <thead>
-          <tr><th>Band</th><th>European AQI</th></tr>
+          <tr><th>{{ t('about.colBand') }}</th><th>{{ t('about.colAqi') }}</th></tr>
         </thead>
         <tbody>
           <tr v-for="b in AQI_BANDS" :key="b.id">
             <td>
               <span class="inline-flex items-center gap-2">
-                <span class="size-3 rounded-full ring-1 ring-ink/15" :class="BAND_BG[b.id]" aria-hidden="true" />{{ b.label }}
+                <span class="size-3 rounded-full ring-1 ring-ink/15" :class="BAND_BG[b.id]" aria-hidden="true" />{{ text.band(b.id) }}
               </span>
             </td>
             <td class="font-mono">
@@ -92,25 +82,25 @@ const bandRange = (b: { min: number, max: number }) =>
       </table>
     </section>
 
-    <section v-for="a in ACTIVITIES" :key="a.id" class="grid gap-3">
+    <section v-for="a in ACTIVITIES" :key="a" class="grid gap-3">
       <h2 class="text-xl font-semibold">
-        {{ a.title }}
+        {{ t(`activity.${a}`) }}
       </h2>
-      <p>{{ a.basis }}</p>
+      <p>{{ t(`about.${a}Basis`) }}</p>
       <table class="data-table">
         <thead>
           <tr>
-            <th>Answer</th>
-            <th v-for="p in PROFILES" :key="p.id">
-              {{ p.label }}
+            <th>{{ t('about.colAnswer') }}</th>
+            <th v-for="p in PROFILES" :key="p">
+              {{ t(`profile.${p}`) }}
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(answer, i) in a.answers" :key="answer">
-            <td>{{ answer }}</td>
-            <td v-for="p in PROFILES" :key="p.id" class="font-mono">
-              AQI {{ ranges(a.id, p.id)[i] }}
+          <tr v-for="level in LEVELS" :key="level">
+            <td>{{ t(`verdict.${a}.${level}.headline`) }}</td>
+            <td v-for="p in PROFILES" :key="p" class="font-mono">
+              AQI {{ range(a, p, level) }}
             </td>
           </tr>
         </tbody>
@@ -119,34 +109,29 @@ const bandRange = (b: { min: number, max: number }) =>
 
     <section class="grid gap-3">
       <h2 class="text-xl font-semibold">
-        Better times
+        {{ t('about.betterTitle') }}
       </h2>
-      <p>
-        When an answer isn't the best one, Smog Radar looks ahead for the first hour that would be, and highlights
-        the cleanest {{ CLEANEST_HOURS }} hours on the chart. Both only consider {{ String(DAYTIME[0]).padStart(2, '0') }}:00 to
-        {{ DAYTIME[1] }}:00 local time; nobody wants a walk suggestion for 3 a.m.
-      </p>
+      <p>{{ t('about.betterText', { hours: CLEANEST_HOURS, from: clock(DAYTIME[0]), to: clock(DAYTIME[1]) }) }}</p>
     </section>
 
     <section class="grid gap-3">
       <h2 class="text-xl font-semibold">
-        WHO guidelines
+        {{ t('about.whoTitle') }}
       </h2>
-      <p>
-        For context, each pollutant is compared with the
-        <a href="https://www.who.int/publications/i/item/9789240034228" target="_blank" rel="noopener">WHO 2021 air quality guidelines</a>.
-        Those are 24-hour (or 8-hour) averages and our values are hourly, so the comparison is a pointer, not a compliance check.
-        The answers themselves use the European AQI only.
-      </p>
+      <i18n-t keypath="about.whoText" tag="p" scope="global">
+        <template #who>
+          <a href="https://www.who.int/publications/i/item/9789240034228" target="_blank" rel="noopener">{{ t('about.who') }}</a>
+        </template>
+      </i18n-t>
       <table class="data-table">
         <thead>
-          <tr><th>Pollutant</th><th>Guideline</th></tr>
+          <tr><th>{{ t('about.colPollutant') }}</th><th>{{ t('about.colGuideline') }}</th></tr>
         </thead>
         <tbody>
           <tr v-for="(info, id) in POLLUTANT_INFO" :key="id">
-            <td>{{ info.label }} <span class="text-muted">· {{ info.name }}</span></td>
+            <td>{{ info.label }} <span class="text-muted">· {{ t(`pollutant.${id}`) }}</span></td>
             <td class="font-mono">
-              {{ info.guideline }} µg/m³, {{ info.guidelinePeriod }} mean
+              {{ t('about.guideline', { value: info.guideline, hours: info.guidelineHours }) }}
             </td>
           </tr>
         </tbody>
@@ -155,13 +140,9 @@ const bandRange = (b: { min: number, max: number }) =>
 
     <section class="grid gap-3">
       <h2 class="text-xl font-semibold">
-        Privacy
+        {{ t('about.privacyTitle') }}
       </h2>
-      <p>
-        No accounts, no analytics, no tracking. "Use my location" asks your browser once; the position is rounded to about
-        1 km before it leaves your browser, and the rounded position is used only to fetch the forecast from Open-Meteo.
-        Two cookies remember your last place and whether sensitive mode is on, so the page opens where you left it.
-      </p>
+      <p>{{ t('about.privacyText') }}</p>
     </section>
   </article>
 </template>

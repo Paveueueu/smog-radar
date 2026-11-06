@@ -12,6 +12,7 @@ import {
 import type { Place } from '#shared/types/air'
 
 const emit = defineEmits<{ select: [place: SelectedPlace] }>()
+const { t, locale } = useI18n()
 
 const MIN_CHARS = 2
 
@@ -33,7 +34,7 @@ async function search(q: string) {
   controller = new AbortController()
   state.value = 'loading'
   try {
-    results.value = await $fetch<Place[]>('/api/geocode', { query: { q: q.trim() }, signal: controller.signal })
+    results.value = await $fetch<Place[]>('/api/geocode', { query: { q: q.trim(), lang: locale.value }, signal: controller.signal })
     state.value = 'done'
   }
   catch (e) {
@@ -74,8 +75,8 @@ function onSelect(place: Place | null) {
       </svg>
       <ComboboxInput
         v-model="term"
-        placeholder="Search for a city"
-        aria-label="Search for a city"
+        :placeholder="t('place.search')"
+        :aria-label="t('place.search')"
         autocomplete="off"
         class="h-full min-w-0 flex-1 bg-transparent text-[15px] text-ink outline-none placeholder:text-muted"
         @focus="open = term.trim().length >= MIN_CHARS"
@@ -104,13 +105,13 @@ function onSelect(place: Place | null) {
           </ComboboxItem>
 
           <ComboboxEmpty v-if="state === 'done'" class="px-3 py-2 text-sm text-muted">
-            No places match “{{ term.trim() }}”.
+            {{ t('place.noMatch', { query: term.trim() }) }}
           </ComboboxEmpty>
           <p v-else-if="state === 'loading' && !results.length" class="px-3 py-2 text-sm text-muted">
-            Searching…
+            {{ t('place.searching') }}
           </p>
           <p v-else-if="state === 'error'" class="px-3 py-2 text-sm text-muted">
-            Place search isn't available right now. Try again in a moment.
+            {{ t('place.searchDown') }}
           </p>
         </ComboboxViewport>
       </ComboboxContent>

@@ -1,7 +1,7 @@
 import type { AirReport } from '#shared/types/air'
 import { aqiBand, type AqiBand } from './aqi'
 import { DAYTIME, localHour, type TimeWindow } from './forecast'
-import { dayOffset, formatClock } from './time'
+import { dayOffset, formatClock, formatWeekday } from './time'
 
 export interface TimelineColumn {
   time: string
@@ -33,7 +33,7 @@ const MIN_TOP = 60
 const MAX_TOP = 120
 const STEP = 20
 
-export function buildTimeline(report: AirReport, cleanest: TimeWindow | null): Timeline {
+export function buildTimeline(report: AirReport, cleanest: TimeWindow | null, locale = 'en'): Timeline {
   const tz = report.location.timezone
   const values = report.hourly.map(s => s.aqi).filter((v): v is number => v !== null)
   const peak = values.length ? Math.max(...values) : 0
@@ -43,7 +43,6 @@ export function buildTimeline(report: AirReport, cleanest: TimeWindow | null): T
   for (let v = STEP; v <= max; v += STEP) gridlines.push(v)
 
   const now = report.current.time
-  const weekday = new Intl.DateTimeFormat('en-GB', { weekday: 'short', timeZone: tz })
 
   const columns = report.hourly.map((s, i): TimelineColumn => {
     const h = localHour(s.time, tz)
@@ -59,7 +58,7 @@ export function buildTimeline(report: AirReport, cleanest: TimeWindow | null): T
       clipped: s.aqi !== null && s.aqi > max,
       isNow: s.time === now,
       isNight: h < DAYTIME[0] || h >= DAYTIME[1],
-      dayLabel: newDay ? weekday.format(new Date(s.time)) : null,
+      dayLabel: newDay ? formatWeekday(s.time, tz, locale) : null,
       inCleanest: cleanest !== null && i >= cleanest.startIndex && i < cleanest.startIndex + cleanest.hours,
     }
   })

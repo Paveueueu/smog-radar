@@ -1,0 +1,215 @@
+{
+  "meta": {
+    "description": "Czy powietrze na zewnątrz nadaje się na spacer albo otwarcie okien? Aktualna jakość powietrza w jednym spojrzeniu.",
+    "placeTitle": "{place} - Smog Radar",
+    "aboutTitle": "O danych - Smog Radar",
+    "aboutDescription": "Skąd Smog Radar bierze dane i jak decyduje, czy iść na spacer albo otworzyć okna."
+  },
+  "nav": {
+    "skip": "Przejdź do treści",
+    "about": "O danych",
+    "main": "Główna"
+  },
+  "theme": {
+    "label": "Motyw",
+    "toLight": "Włącz jasny motyw",
+    "toDark": "Włącz ciemny motyw"
+  },
+  "language": {
+    "label": "Język"
+  },
+  "place": {
+    "search": "Wyszukaj miasto",
+    "noMatch": "Brak miejsc pasujących do „{query}”.",
+    "searching": "Szukam…",
+    "searchDown": "Wyszukiwarka miejsc chwilowo nie działa. Spróbuj za moment.",
+    "useMyLocation": "Moja lokalizacja",
+    "locating": "Ustalam…",
+    "geo": {
+      "unsupported": "Ta przeglądarka nie udostępnia lokalizacji. Wyszukaj miejsce.",
+      "denied": "Nie zezwolono na dostęp do lokalizacji. Wyszukaj miejsce.",
+      "unavailable": "Twoja lokalizacja jest teraz niedostępna. Wyszukaj miejsce.",
+      "timeout": "Ustalanie lokalizacji trwało za długo. Spróbuj ponownie albo wyszukaj miejsce."
+    }
+  },
+  "summary": {
+    "at": "Jakość powietrza o {hour}",
+    "updated": "aktualizacja {time}",
+    "mostly": "głównie {name} ({label})",
+    "noValue": "Brak wartości jakości powietrza dla tej godziny."
+  },
+  "band": {
+    "good": "Dobra",
+    "fair": "Zadowalająca",
+    "moderate": "Umiarkowana",
+    "poor": "Zła",
+    "very-poor": "Bardzo zła",
+    "extremely-poor": "Skrajnie zła"
+  },
+  "level": {
+    "good": "Dobrze",
+    "caution": "Uwaga",
+    "bad": "Unikaj",
+    "unknown": "Brak danych"
+  },
+  "activity": {
+    "walk": "Spacer",
+    "windows": "Otwieranie okien"
+  },
+  "verdict": {
+    "walk": {
+      "good": {
+        "headline": "Tak, idź na spacer",
+        "advice": {
+          "general": "Możesz robić na zewnątrz wszystko jak zwykle.",
+          "sensitive": "Dobre warunki na ruch na zewnątrz, nawet jeśli źle znosisz smog."
+        }
+      },
+      "caution": {
+        "headline": "Spacer tak, wysiłek nie",
+        "advice": {
+          "general": "Spacer jest w porządku. Ogranicz intensywny wysiłek na zewnątrz, zwłaszcza jeśli pieką cię oczy albo gardło.",
+          "sensitive": "Wybierz spokojny spacer i odpuść intensywny wysiłek na zewnątrz."
+        }
+      },
+      "bad": {
+        "headline": "Lepiej nie teraz",
+        "advice": {
+          "general": "Ogranicz czas na zewnątrz i unikaj ćwiczeń na powietrzu.",
+          "sensitive": "Jeśli możesz, zostań w domu i unikaj wysiłku na zewnątrz."
+        }
+      }
+    },
+    "windows": {
+      "good": {
+        "headline": "Otwórz okna",
+        "advice": {
+          "general": "Powietrze na zewnątrz jest na tyle czyste, że możesz swobodnie wietrzyć.",
+          "sensitive": "Powietrze na zewnątrz jest na tyle czyste, że możesz swobodnie wietrzyć."
+        }
+      },
+      "caution": {
+        "headline": "Tylko krótkie wietrzenie",
+        "advice": {
+          "general": "Przewietrz przez 5–10 minut, potem zamknij okna.",
+          "sensitive": "Przewietrz krótko, potem zamknij okna."
+        }
+      },
+      "bad": {
+        "headline": "Trzymaj okna zamknięte",
+        "advice": {
+          "general": "Przewietrz, gdy powietrze się poprawi.",
+          "sensitive": "Przewietrz, gdy powietrze się poprawi."
+        }
+      }
+    },
+    "noData": {
+      "headline": "Teraz brak danych",
+      "advice": "Model jakości powietrza nie ma wartości dla tej godziny."
+    },
+    "nextGood": "Najbliższa dobra godzina: {hour}",
+    "noBetter": "Brak lepszej godziny w ciągu najbliższych 24 godzin"
+  },
+  "time": {
+    "tomorrow": "jutro {clock}",
+    "weekday": "{day} {clock}",
+    "range": "{from}–{to}",
+    "now": "Teraz ({clock})"
+  },
+  "sensitive": {
+    "label": "Tryb dla osób wrażliwych na smog",
+    "help": "Astma, choroby serca lub płuc, ciąża, dzieci albo osoby starsze. Stosuje ostrzejsze progi."
+  },
+  "forecast": {
+    "title": "Najbliższe 24 godziny",
+    "cleanest": "Najczystsze {n} godziny:",
+    "cleanestValue": "{range}, średni AQI {aqi}",
+    "now": "teraz",
+    "noData": "brak danych dla tej godziny",
+    "readout": "AQI {aqi} · {band}",
+    "readoutBy": "AQI {aqi} · {band} · głównie {pollutant}",
+    "legendCleanest": "Najczystszy odcinek",
+    "legendNight": "Noc, nie podpowiadamy",
+    "hintPointer": "Najedź kursorem albo użyj ← →, żeby odczytać godzinę",
+    "hintTouch": "Stuknij słupek, żeby odczytać godzinę",
+    "slider": "Godzina prognozy",
+    "caption": "Prognoza jakości powietrza godzina po godzinie, czas {tz}",
+    "colHour": "Godzina",
+    "colAqi": "Europejski AQI",
+    "colBand": "Klasa",
+    "cleanestMark": "(najczystszy odcinek)"
+  },
+  "pollutants": {
+    "title": "Co jest w powietrzu",
+    "subtitle": "Ta godzina na tle wytycznych WHO z 2021 roku.",
+    "unit": "µg/m³",
+    "noData": "brak danych",
+    "setsIndex": "ustala indeks",
+    "below": "{pct}% normy WHO",
+    "above": "{x}× normy WHO",
+    "note": "Kreska oznacza normę: średnią 24-godzinną (dla ozonu 8-godzinną). To wartości godzinowe, więc porównanie traktuj jako wskazówkę, a nie sprawdzenie zgodności z normą. Odpowiedzi powyżej opierają się wyłącznie na europejskim AQI."
+  },
+  "pollutant": {
+    "pm2_5": "Pył drobny",
+    "pm10": "Pył zawieszony",
+    "no2": "Dwutlenek azotu",
+    "o3": "Ozon"
+  },
+  "state": {
+    "loading": "Wczytuję jakość powietrza…",
+    "updating": "Aktualizuję…",
+    "errorTitle": "Teraz brak danych o jakości powietrza",
+    "errorBadPlace": "Ta lokalizacja wygląda na błędną. Wyszukaj miejsce.",
+    "errorUpstream": "Nie udało się połączyć z serwisem jakości powietrza. Zwykle wraca w ciągu kilku minut.",
+    "retry": "Spróbuj ponownie",
+    "retrying": "Próbuję ponownie…"
+  },
+  "footer": {
+    "data": "Dane modelowe z {source} (europejska prognoza jakości powietrza CAMS). To nie jest porada medyczna.",
+    "how": "Jak to działa"
+  },
+  "error": {
+    "code": "Błąd {code}",
+    "notFoundTitle": "Na tej stronie nic nie ma",
+    "notFoundText": "Adres może zawierać literówkę albo strona została przeniesiona.",
+    "otherTitle": "Coś poszło nie tak",
+    "otherText": "Spróbuj ponownie za chwilę.",
+    "home": "Sprawdź powietrze",
+    "notFoundMeta": "Nie znaleziono strony - Smog Radar",
+    "otherMeta": "Coś poszło nie tak - Smog Radar"
+  },
+  "profile": {
+    "general": "Większość osób",
+    "sensitive": "Osoby wrażliwe"
+  },
+  "about": {
+    "back": "← Wróć do radaru",
+    "title": "O danych",
+    "intro": "Smog Radar odpowiada na dwa codzienne pytania: czy iść na spacer i czy otworzyć okna. Opiera się na prognozie jakości powietrza. Poniżej piszemy, skąd biorą się liczby i jak powstają odpowiedzi.",
+    "sourceTitle": "Skąd pochodzą dane",
+    "sourceText": "Dane o jakości powietrza pochodzą z {openMeteo}, które udostępnia europejską prognozę jakości powietrza {cams}: wartości godzinowe na siatce o oczkach ok. 11 km. Wyszukiwanie miejsc korzysta z geokodowania Open-Meteo.",
+    "openMeteo": "Open-Meteo Air Quality API",
+    "modelNote": "{strong} Ruchliwa ulica albo komin sąsiada mogą sprawić, że pod twoimi drzwiami powietrze jest gorsze niż liczba tutaj. Smog Radar to ogólna informacja, a nie porada medyczna.",
+    "modelNoteStrong": "To wartości z modelu, a nie pomiary ze stacji.",
+    "eaqiTitle": "Europejski indeks jakości powietrza",
+    "eaqiText": "Indeks używany w całej UE. Każde zanieczyszczenie (PM2.5, PM10, NO₂, O₃) ma własny podindeks, a ogólny AQI to najwyższy z nich. Dlatego strona podaje, które zanieczyszczenie „ustala indeks”.",
+    "colBand": "Klasa",
+    "colAqi": "Europejski AQI",
+    "colAnswer": "Odpowiedź",
+    "rangeTo": "{from}–{to}",
+    "rangeUp": "{from} i więcej",
+    "below": "poniżej {n}",
+    "walkBasis": "Opiera się na zaleceniach zdrowotnych Europejskiej Agencji Środowiska dla każdej klasy AQI: większości osób zaleca się ograniczenie intensywnego wysiłku na zewnątrz od klasy „zła”, a osobom wrażliwym od „umiarkowanej”.",
+    "windowsBasis": "EEA nie daje zaleceń co do wietrzenia, więc ta reguła jest nasza. Pomieszczenia i tak potrzebują świeżego powietrza, dlatego środkowa odpowiedź to krótkie wietrzenie, a nie trzymanie okien zamkniętych.",
+    "betterTitle": "Lepsze godziny",
+    "betterText": "Gdy odpowiedź nie jest najlepsza, Smog Radar szuka w prognozie pierwszej godziny, w której byłaby, i zaznacza na wykresie najczystsze {hours} godziny. W obu przypadkach bierze pod uwagę tylko godziny od {from} do {to} czasu lokalnego; nikt nie chce propozycji spaceru o 3 w nocy.",
+    "whoTitle": "Wytyczne WHO",
+    "whoText": "Dla kontekstu każde zanieczyszczenie porównujemy z {who}. To średnie 24-godzinne (lub 8-godzinne), a nasze wartości są godzinowe, więc porównanie jest wskazówką, a nie sprawdzeniem zgodności z normą. Same odpowiedzi opierają się wyłącznie na europejskim AQI.",
+    "who": "wytycznymi WHO z 2021 roku",
+    "colPollutant": "Zanieczyszczenie",
+    "colGuideline": "Norma",
+    "guideline": "{value} µg/m³, średnia {hours}-godzinna",
+    "privacyTitle": "Prywatność",
+    "privacyText": "Bez kont, bez analityki, bez śledzenia. „Moja lokalizacja” pyta przeglądarkę jeden raz; pozycja jest zaokrąglana do ok. 1 km, zanim opuści przeglądarkę, a zaokrąglona pozycja służy tylko do pobrania prognozy z Open-Meteo. Ciasteczka zapamiętują ostatnie miejsce, język i to, czy tryb dla osób wrażliwych jest włączony, żeby strona otwierała się tam, gdzie ją zostawiono."
+  }
+}

@@ -27,46 +27,11 @@ export function levelFor(activity: Activity, profile: Profile, aqi: number): Lev
   return 'good'
 }
 
-interface Copy {
-  headline: string
-  advice: string
-}
-
-const COPY: Record<Activity, Record<Level, Record<Profile, Copy>>> = {
-  walk: {
-    good: {
-      general: { headline: 'Yes, go for a walk', advice: 'Enjoy your usual outdoor activities.' },
-      sensitive: { headline: 'Yes, go for a walk', advice: 'Fine for outdoor activities, even if you are sensitive to air pollution.' },
-    },
-    caution: {
-      general: { headline: 'Take it easy', advice: 'A walk is fine. Cut down on intense exercise outside, especially if your eyes or throat get irritated.' },
-      sensitive: { headline: 'Take it easy', advice: 'Keep it to a gentle walk and skip strenuous exercise outside.' },
-    },
-    bad: {
-      general: { headline: 'Not now', advice: 'Limit time outside and avoid exercising outdoors.' },
-      sensitive: { headline: 'Not now', advice: 'Stay in if you can and avoid physical activity outdoors.' },
-    },
-  },
-  windows: {
-    good: {
-      general: { headline: 'Open the windows', advice: 'The air outside is clean enough to ventilate freely.' },
-      sensitive: { headline: 'Open the windows', advice: 'The air outside is clean enough to ventilate freely.' },
-    },
-    caution: {
-      general: { headline: 'Short airing only', advice: 'Air out for 5–10 minutes, then close the windows.' },
-      sensitive: { headline: 'Short airing only', advice: 'Air out briefly, then close the windows.' },
-    },
-    bad: {
-      general: { headline: 'Keep them closed', advice: 'Ventilate when the air improves.' },
-      sensitive: { headline: 'Keep them closed', advice: 'Ventilate when the air improves.' },
-    },
-  },
-}
-
 const ACTIVITY_HOURS: Record<Activity, number> = { walk: 1, windows: 1 }
 
-export interface ActivityVerdict extends Copy {
+export interface ActivityVerdict {
   activity: Activity
+  profile: Profile
   /** null when there is no AQI value for the current hour */
   level: Level | null
   /** Next daytime hour that would be good; null if none in the forecast. */
@@ -85,11 +50,9 @@ export interface Assessment {
 
 export const CLEANEST_HOURS = 2
 
-const NO_DATA: Copy = { headline: 'No data right now', advice: 'The air quality model has no value for this hour.' }
-
 function activityVerdict(activity: Activity, profile: Profile, report: AirReport): ActivityVerdict {
   const aqi = report.current.aqi
-  if (aqi === null) return { activity, level: null, ...NO_DATA, betterAt: null }
+  if (aqi === null) return { activity, profile, level: null, betterAt: null }
 
   const level = levelFor(activity, profile, aqi)
   const betterAt = level === 'good'
@@ -100,7 +63,7 @@ function activityVerdict(activity: Activity, profile: Profile, report: AirReport
         daytime: DAYTIME,
       })
 
-  return { activity, level, ...COPY[activity][level][profile], betterAt }
+  return { activity, profile, level, betterAt }
 }
 
 export function assess(report: AirReport, profile: Profile): Assessment {

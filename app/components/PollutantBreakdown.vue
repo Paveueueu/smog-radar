@@ -3,17 +3,19 @@ import type { AirSample } from '#shared/types/air'
 
 const props = defineProps<{ sample: AirSample }>()
 
+const { t } = useI18n()
+const text = useAirText()
+
 const rows = computed(() => pollutantRows(props.sample))
-const formatValue = (v: number) => (v < 10 ? v.toFixed(1) : String(Math.round(v)))
 </script>
 
 <template>
   <section aria-labelledby="pollutants-title" class="rounded-card border border-line bg-surface p-5 shadow-card sm:p-6">
     <h2 id="pollutants-title" class="text-lg font-semibold">
-      What's in the air
+      {{ t('pollutants.title') }}
     </h2>
     <p class="mt-1 text-sm text-muted">
-      This hour, against the WHO 2021 air quality guidelines.
+      {{ t('pollutants.subtitle') }}
     </p>
 
     <ul class="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2">
@@ -21,13 +23,13 @@ const formatValue = (v: number) => (v < 10 ? v.toFixed(1) : String(Math.round(v)
         <div class="flex items-baseline justify-between gap-3">
           <p class="min-w-0">
             <span class="font-semibold">{{ row.label }}</span>
-            <span class="ml-2 text-sm text-muted">{{ row.name }}</span>
+            <span class="ml-2 text-sm text-muted">{{ t(`pollutant.${row.id}`) }}</span>
           </p>
           <p class="flex-none font-mono text-sm">
             <template v-if="row.value !== null">
-              {{ formatValue(row.value) }} <span class="text-muted">µg/m³</span>
+              {{ text.concentration(row.value) }} <span class="text-muted">{{ t('pollutants.unit') }}</span>
             </template>
-            <span v-else class="text-muted">no data</span>
+            <span v-else class="text-muted">{{ t('pollutants.noData') }}</span>
           </p>
         </div>
 
@@ -45,19 +47,18 @@ const formatValue = (v: number) => (v < 10 ? v.toFixed(1) : String(Math.round(v)
         </div>
 
         <p class="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-          <span v-if="row.ratioText" class="text-ink-2">{{ row.ratioText }}</span>
+          <span v-if="row.ratio !== null" class="text-ink-2">{{ text.ratio(row.ratio) }}</span>
           <span v-if="row.subIndex !== null" class="font-mono text-xs text-muted">EAQI {{ Math.round(row.subIndex) }}</span>
           <span
             v-if="row.isDominant"
             class="rounded-full bg-ink px-2 py-0.5 text-xs font-medium text-bg"
-          >sets the index</span>
+          >{{ t('pollutants.setsIndex') }}</span>
         </p>
       </li>
     </ul>
 
     <p class="mt-6 border-t border-line pt-3 text-xs text-muted">
-      The tick marks the guideline: a 24-hour mean (8-hour for ozone). These are hourly values, so treat the
-      comparison as a pointer, not a compliance check. The answers above use the European AQI only.
+      {{ t('pollutants.note') }}
     </p>
   </section>
 </template>

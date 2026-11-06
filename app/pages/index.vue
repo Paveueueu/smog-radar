@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { AirReport } from '#shared/types/air'
 
+const { t } = useI18n()
 const { place, select } = usePlace()
 const profile = useProfile()
 
@@ -13,7 +14,7 @@ useAutoRefresh(report, refresh)
 const assessment = computed(() => (report.value ? assess(report.value, profile.value) : null))
 const updating = computed(() => status.value === 'pending' && !!report.value)
 
-useSeoMeta({ title: () => `${place.value.name} - Smog Radar` })
+useSeoMeta({ title: () => t('meta.placeTitle', { place: place.value.name }) })
 </script>
 
 <template>
@@ -38,7 +39,7 @@ useSeoMeta({ title: () => `${place.value.name} - Smog Radar` })
         role="status"
         class="absolute -top-6 right-0 font-mono text-xs text-muted"
       >
-        Updating…
+        {{ t('state.updating') }}
       </p>
 
       <AirSummary :report="report" :assessment="assessment" :place="place.name" />
@@ -58,7 +59,7 @@ useSeoMeta({ title: () => `${place.value.name} - Smog Radar` })
 
     <div v-else>
       <p role="status" class="sr-only">
-        Loading air quality…
+        {{ t('state.loading') }}
       </p>
       <LoadingSkeleton />
     </div>
