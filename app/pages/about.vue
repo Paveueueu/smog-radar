@@ -169,6 +169,8 @@ const clock = (h: number) => `${String(h).padStart(2, '0')}:00`
   padding-block: 2rem;
   border-top: 1px solid var(--line);
 }
+/* No rule right after a table: it reads as a table border. */
+.prose-like section:has(> table:last-child) + section { border-top: 0; }
 .prose-like h2 {
   font-size: 1.25rem;
   font-weight: 600;
@@ -187,6 +189,7 @@ const clock = (h: number) => `${String(h).padStart(2, '0')}:00`
   padding: 0.55rem 0.75rem 0.55rem 0;
   border-bottom: 1px solid var(--line);
 }
+.data-table tbody tr:last-child td { border-bottom: 0; }
 .data-table th {
   font-size: 0.875rem;
   font-weight: 500;
