@@ -1,6 +1,9 @@
 // https://docs.openaq.org (v3, API key, 60 requests/minute on the free tier)
 import { z } from 'zod'
 import type { Station } from '../../shared/types/air'
+import { EUROPE_BBOX, STATION_MAX_AGE_HOURS } from '../../shared/utils/stations'
+
+export { EUROPE_BBOX }
 
 export const OPENAQ_URL = 'https://api.openaq.org/v3'
 /** OpenAQ parameter id for PM2.5 in µg/m³. */
@@ -9,11 +12,8 @@ export const PAGE_SIZE = 1000
 /** About 10 pages are needed today. */
 export const MAX_PAGES = 20
 
-/** Readings older than this don't describe "now". */
-export const MAX_AGE_HOURS = 3
-
-/** Europe, roughly from the Azores to the Urals: [west, south, east, north]. */
-export const EUROPE_BBOX: [number, number, number, number] = [-25, 34, 45, 72]
+/** Readings older than this don't describe "now" (shared with the About page). */
+export const MAX_AGE_HOURS = STATION_MAX_AGE_HOURS
 
 /** Plausible hourly PM2.5 range; outside it a sensor is broken, not the air. */
 const MAX_PLAUSIBLE = 1000

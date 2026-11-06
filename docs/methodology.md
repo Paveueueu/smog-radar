@@ -57,6 +57,16 @@ The EEA gives no guidance on ventilation, so this rule is our own. Rooms still n
 - **Cleanest stretch:** the two consecutive hours with the lowest average EAQI, highlighted on the timeline.
 - Both only consider local daytime hours, 07:00 to 22:00 in the location's time zone. Hours are handled as absolute timestamps, so daylight-saving changes don't shift them.
 
+## Station map
+
+The map is the one part of the page that uses **measurements** rather than the model, so the two can be compared.
+
+- **Source:** [OpenAQ](https://openaq.org) (v3 API), the latest hourly PM2.5 of every sensor. Server code: `server/utils/openaq.ts`.
+- **Filtering:** only readings from the last 3 hours, between 0 and 1000 µg/m³, inside Europe (−25° to 45° E, 34° to 72° N). Several sensors at one location become one station: the median value and the newest time.
+- **Colour:** each value is converted to the European AQI PM2.5 sub-index with the EEA 2024 hourly thresholds (0–5, 5–15, 15–50, 50–90, 90–140, above 140 µg/m³), interpolated linearly inside each band (`pm25ToAqi` in `app/utils/aqi.ts`), and coloured by the same bands as the rest of the page.
+- **Surface:** inverse distance weighting (power 2) over the stations within 50 km of a point (`app/utils/surface.ts`). Further than 25 km from the nearest station there is no value at all, so places without measurements stay uncoloured; between 20 and 25 km the colour fades out.
+- **Limits:** PM2.5 only; stations include both reference monitors and low-cost sensors, as published by OpenAQ; IDW knows nothing about terrain or wind, so treat the colour between stations as a guide.
+
 ## WHO guidelines
 
 For context, each pollutant is also shown against the [WHO 2021 air quality guidelines](https://www.who.int/publications/i/item/9789240034228):

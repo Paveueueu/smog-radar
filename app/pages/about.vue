@@ -1,5 +1,7 @@
 <script setup lang="ts">
 // Numbers come from the same constants the answers use.
+import { STATION_MAX_AGE_HOURS } from '#shared/utils/stations'
+
 const { t } = useI18n()
 const text = useAirText()
 
@@ -112,6 +114,23 @@ const clock = (h: number) => `${String(h).padStart(2, '0')}:00`
         {{ t('about.betterTitle') }}
       </h2>
       <p>{{ t('about.betterText', { hours: CLEANEST_HOURS, from: clock(DAYTIME[0]), to: clock(DAYTIME[1]) }) }}</p>
+    </section>
+
+    <section class="grid gap-3">
+      <h2 class="text-xl font-semibold">
+        {{ t('about.mapTitle') }}
+      </h2>
+      <i18n-t keypath="about.mapText" tag="p" scope="global">
+        <template #openaq>
+          <a href="https://openaq.org" target="_blank" rel="noopener">OpenAQ</a>
+        </template>
+        <template #km>
+          {{ MAX_DISTANCE_KM }}
+        </template>
+        <template #hours>
+          {{ STATION_MAX_AGE_HOURS }}
+        </template>
+      </i18n-t>
     </section>
 
     <section class="grid gap-3">
