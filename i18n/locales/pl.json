@@ -13,7 +13,8 @@
     "label": "Język"
   },
   "place": {
-    "search": "Wyszukaj miasto",
+    "search": "Wyszukaj miasto lub dzielnicę",
+    "districtsOf": "Dzielnice: {city}",
     "noMatch": "Brak miejsc pasujących do „{query}”.",
     "searching": "Szukam…",
     "searchDown": "Wyszukiwarka miejsc chwilowo nie działa. Spróbuj za moment.",
@@ -181,7 +182,7 @@
     "title": "O danych",
     "intro": "Smog Radar odpowiada na dwa codzienne pytania: czy iść na spacer i czy otworzyć okna. Opiera się na prognozie jakości powietrza. Poniżej piszemy, skąd biorą się liczby i jak powstają odpowiedzi.",
     "sourceTitle": "Skąd pochodzą dane",
-    "sourceText": "Dane o jakości powietrza pochodzą z {openMeteo}, które udostępnia europejską prognozę jakości powietrza {cams}: wartości godzinowe na siatce o oczkach ok. 11 km. Wyszukiwanie miejsc korzysta z geokodowania Open-Meteo.",
+    "sourceText": "Dane o jakości powietrza pochodzą z {openMeteo}, które udostępnia europejską prognozę jakości powietrza {cams}: wartości godzinowe na siatce o oczkach ok. 11 km. Wyszukiwanie miejsc korzysta z Photona, opartego na danych OpenStreetMap.",
     "openMeteo": "Open-Meteo Air Quality API",
     "modelNote": "{strong} Ruchliwa ulica albo komin sąsiada mogą sprawić, że pod twoimi drzwiami powietrze jest gorsze niż liczba tutaj. Smog Radar to ogólna informacja, a nie porada medyczna.",
     "modelNoteStrong": "To wartości z modelu, a nie pomiary ze stacji.",

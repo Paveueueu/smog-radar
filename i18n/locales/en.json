@@ -13,7 +13,8 @@
     "label": "Language"
   },
   "place": {
-    "search": "Search for a city",
+    "search": "Search for a city or district",
+    "districtsOf": "Districts of {city}",
     "noMatch": "No places match “{query}”.",
     "searching": "Searching…",
     "searchDown": "Place search isn't available right now. Try again in a moment.",
@@ -181,7 +182,7 @@
     "title": "About the data",
     "intro": "Smog Radar answers two everyday questions, whether to go for a walk and whether to open the windows, from an air quality forecast. Here is where the numbers come from and how the answers are made.",
     "sourceTitle": "Where the data comes from",
-    "sourceText": "Air quality comes from the {openMeteo}, which serves the {cams} European air quality forecast: hourly values on a grid of roughly 11 km. Place search uses Open-Meteo's geocoding.",
+    "sourceText": "Air quality comes from the {openMeteo}, which serves the {cams} European air quality forecast: hourly values on a grid of roughly 11 km. Place search uses Photon, built on OpenStreetMap data.",
     "openMeteo": "Open-Meteo Air Quality API",
     "modelNote": "{strong} A busy street or a neighbour's chimney can make the air on your doorstep worse than the number here. Smog Radar is general information, not medical advice.",
     "modelNoteStrong": "These are modelled values, not station measurements.",

@@ -70,3 +70,9 @@ export interface Place {
   lat: number
   lon: number
 }
+
+export interface PlaceResults {
+  places: Place[]
+  /** Districts when the search is a city name; the city is places[0]. */
+  districts: { of: string, places: Place[] } | null
+}
