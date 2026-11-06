@@ -7,3 +7,5 @@ pnpm install
 cp .env.example .env   # optional: OpenAQ API key for the station map
 pnpm dev               # http://localhost:3000
 ```
+
+MIT License.
