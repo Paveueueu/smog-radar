@@ -28,7 +28,10 @@
     "change": "Zmień miejsce",
     "dialogTitle": "Wybierz miejsce",
     "dialogHelp": "Wyszukaj miasto albo użyj swojej lokalizacji.",
-    "close": "Zamknij"
+    "close": "Zamknij",
+    "hintNetwork": "Przybliżona lokalizacja na podstawie Twojej sieci. {choose}",
+    "hintDefault": "Pokazujemy przykładowe miasto. {choose}",
+    "choose": "Wybierz swoje miejsce"
   },
   "summary": {
     "at": "Jakość powietrza o {hour}",
@@ -207,7 +210,7 @@
     "colGuideline": "Norma",
     "guideline": "{value} µg/m³, średnia {hours}-godzinna",
     "privacyTitle": "Prywatność",
-    "privacyText": "Bez kont, bez analityki, bez śledzenia. „Moja lokalizacja” pyta przeglądarkę jeden raz; pozycja jest zaokrąglana do ok. 1 km, zanim opuści przeglądarkę, a zaokrąglona pozycja służy tylko do pobrania prognozy z Open-Meteo. Ciasteczka zapamiętują ostatnie miejsce, język i to, czy tryb dla osób wrażliwych jest włączony, żeby strona otwierała się tam, gdzie ją zostawiono."
+    "privacyText": "Bez kont, bez analityki, bez śledzenia. Przy pierwszej wizycie strona zaczyna od przybliżonego miasta, które hosting ustala na podstawie adresu sieciowego; sam adres nie jest nigdzie zapisywany ani wysyłany. „Moja lokalizacja” pyta przeglądarkę jeden raz; pozycja jest zaokrąglana do ok. 1 km, zanim opuści przeglądarkę, a zaokrąglona pozycja służy tylko do pobrania prognozy z Open-Meteo. Ciasteczka zapamiętują ostatnie miejsce, język i to, czy tryb dla osób wrażliwych jest włączony, żeby strona otwierała się tam, gdzie ją zostawiono."
   },
   "settings": {
     "label": "Ustawienia",

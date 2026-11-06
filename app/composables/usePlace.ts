@@ -1,7 +1,6 @@
-/**
- * The place being shown. Sources, in order: the URL (so links can be shared),
- * the last place picked (cookie, so the server renders it straight away), the default.
- */
+export type PlaceSource = 'url' | 'saved' | 'network' | 'default'
+
+/** URL, then the last pick (cookie), then IP geolocation headers, then the default place. */
 export function usePlace() {
   const route = useRoute()
   const router = useRouter()
@@ -11,9 +10,21 @@ export function usePlace() {
     default: () => null,
   })
 
-  const place = computed<SelectedPlace>(
-    () => parsePlace(route.query) ?? parsePlace(saved.value) ?? DEFAULT_PLACE,
+  const network = useState<SelectedPlace | null>('network-place', () =>
+    import.meta.server ? placeFromGeoHeaders(useRequestHeaders()) : null,
   )
+
+  const resolved = computed<{ place: SelectedPlace, source: PlaceSource }>(() => {
+    const fromUrl = parsePlace(route.query)
+    if (fromUrl) return { place: fromUrl, source: 'url' }
+    const fromCookie = parsePlace(saved.value)
+    if (fromCookie) return { place: fromCookie, source: 'saved' }
+    if (network.value) return { place: network.value, source: 'network' }
+    return { place: DEFAULT_PLACE, source: 'default' }
+  })
+
+  const place = computed(() => resolved.value.place)
+  const source = computed(() => resolved.value.source)
 
   async function select(next: SelectedPlace) {
     const clean = parsePlace(next)
@@ -22,5 +33,5 @@ export function usePlace() {
     await router.replace({ query: placeQuery(clean) })
   }
 
-  return { place, select }
+  return { place, source, select }
 }

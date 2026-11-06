@@ -14,7 +14,7 @@ defineProps<{ place: string }>()
 const emit = defineEmits<{ select: [place: SelectedPlace] }>()
 const { t } = useI18n()
 
-const open = ref(false)
+const open = defineModel<boolean>('open', { default: false })
 
 // Focus the search box, not the close button.
 function focusSearch(e: Event) {

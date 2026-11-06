@@ -2,7 +2,8 @@
 import type { AirReport } from '#shared/types/air'
 
 const { t } = useI18n()
-const { place, select } = usePlace()
+const { place, source, select } = usePlace()
+const pickerOpen = ref(false)
 const profile = useProfile()
 
 const { data: report, status, error, refresh } = await useFetch<AirReport>('/api/air', {
@@ -21,11 +22,12 @@ useSeoMeta({ title: () => t('meta.placeTitle', { place: place.value.name }) })
   <div class="grid gap-6">
     <div class="grid gap-2">
       <div class="flex items-center justify-between gap-3">
-        <PlaceDialog :place="place.name" @select="select" />
+        <PlaceDialog v-model:open="pickerOpen" :place="place.name" @select="select" />
         <p v-if="updating" role="status" class="flex-none font-mono text-xs text-muted">
           {{ t('state.updating') }}
         </p>
       </div>
+      <PlaceHint :source="source" @choose="pickerOpen = true" />
       <AirSummary v-if="report && assessment && !error" :report="report" :assessment="assessment" />
     </div>
 

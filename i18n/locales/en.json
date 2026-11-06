@@ -28,7 +28,10 @@
     "change": "Change place",
     "dialogTitle": "Choose a place",
     "dialogHelp": "Search for a city or use your location.",
-    "close": "Close"
+    "close": "Close",
+    "hintNetwork": "Approximate location, based on your network. {choose}",
+    "hintDefault": "Showing an example city. {choose}",
+    "choose": "Choose your place"
   },
   "summary": {
     "at": "Air quality at {hour}",
@@ -207,7 +210,7 @@
     "colGuideline": "Guideline",
     "guideline": "{value} µg/m³, {hours}-hour mean",
     "privacyTitle": "Privacy",
-    "privacyText": "No accounts, no analytics, no tracking. “Use my location” asks your browser once; the position is rounded to about 1 km before it leaves your browser, and the rounded position is used only to fetch the forecast from Open-Meteo. Cookies remember your last place, your language and whether sensitive mode is on, so the page opens where you left it."
+    "privacyText": "No accounts, no analytics, no tracking. On your first visit the page starts from the approximate city that the hosting provider derives from your network address; the address itself is never stored or sent anywhere. “Use my location” asks your browser once; the position is rounded to about 1 km before it leaves your browser, and the rounded position is used only to fetch the forecast from Open-Meteo. Cookies remember your last place, your language and whether sensitive mode is on, so the page opens where you left it."
   },
   "settings": {
     "label": "Settings",
