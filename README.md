@@ -4,10 +4,12 @@ Tells you whether the air is good enough for a walk and for opening the windows,
 
 ![Smog Radar showing today's verdict for Warsaw and the next 24 hours](docs/screenshot.png)
 
+## Usage
+
 ```bash
 pnpm install
 cp .env.example .env   # optional: OpenAQ API key for the station map
-pnpm dev               # http://localhost:3000
+pnpm dev
 ```
 
 MIT License.
